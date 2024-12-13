@@ -1,0 +1,51 @@
+<div class="card product-card shadow-lg p-3">
+    <!-- صور المنتج -->
+    <div class="row">
+      <div class="col-md-4">
+        <img [src]="selectedImage" class="img-fluid border rounded mb-3" alt="Product image" />
+        <div class="d-flex justify-content-start">
+          <img
+            *ngFor="let image of product.images"
+            [src]="image"
+            class="img-thumbnail me-2"
+            [class.active]="image === selectedImage"
+            (click)="selectImage(image)"
+            style="width: 60px; height: 60px; cursor: pointer;"
+          />
+        </div>
+      </div>
+      
+      <!-- تفاصيل المنتج -->
+      <div class="col-md-8">
+        <h5>{{ product.name }}</h5>
+        
+        <!-- التقييمات -->
+        <div class="d-flex align-items-center mb-2">
+          <div>
+            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+              <i class="bi" [ngClass]="star <= product.rating ? 'bi-star-fill text-warning' : 'bi-star text-muted'"></i>
+            </ng-container>
+          </div>
+          <small class="ms-2">({{ product.reviews }} reviews)</small>
+        </div>
+  
+        <!-- الأسعار -->
+        <h4 class="text-danger">
+          ${{ product.discountedPrice }}
+          <small><s class="text-muted">${{ product.price }}</s></small>
+        </h4>
+  
+        <!-- الوصف -->
+        <p class="text-muted">{{ product.description }}</p>
+  
+        <!-- المميزات -->
+        <ul>
+          <li *ngFor="let feature of product.features">{{ feature }}</li>
+        </ul>
+  
+        <!-- زر الشراء -->
+        <button class="btn btn-warning w-100 mt-3">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  

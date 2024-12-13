@@ -1,0 +1,21 @@
+.table.modern-table th,
+.table.modern-table td {
+    text-align: center;
+    padding: 5px;
+    border: px solid #684a86;
+}
+
+.table.modern-table {
+    font-family: 'Arial', sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #c9ccca;
+    background-color: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table.modern-table thead {
+    background-color: #550f0f;
+    color: #5a0707;
+}

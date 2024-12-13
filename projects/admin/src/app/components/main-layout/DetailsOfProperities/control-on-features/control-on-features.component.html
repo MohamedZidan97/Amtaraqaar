@@ -1,0 +1,109 @@
+<div class="container mt-5">
+    <div class="mb-3">
+      <form [formGroup]="featureForm" (ngSubmit)="onSubmitFeatureItem()">
+
+        <div class="mb-3">
+          <div class="row gx-1 gy-2 align-items-center">
+            <label for="propertyPrice" class="form-label">اضف فئة عقار</label>
+            <div class="col-sm-10">
+              <!-- اضف ميزه -->
+              <input formControlName="title" type="text" id="propertyPrice" class="form-control"
+                placeholder="اضف فئة" />
+            </div>
+            <div class="col-sm-1">
+              <button type="submit" [disabled]="featureForm.invalid" class="btn btn-primary w-8"><i
+                  class="bi bi-plus-circle-fill"></i></button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <hr>
+    <div class="mb-3">
+      <table class="table modern-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>فئه</th>
+            <th>تعديل</th>
+            <th>حذف</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of featureList  let i = index">
+            <td>{{ i+1 }}</td>
+            <td>{{ row.ar_title }}</td>
+            <td>
+              <button type="button" class="btn btn-secondary" (click)="featureId=row.id" data-bs-toggle="modal"
+                data-bs-target="#EditOnFeatureModal">
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger" (click)="featureId=row.id" data-bs-toggle="modal"
+                data-bs-target="#DeleteFeatureModal">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+</div>
+
+  
+<!-- تعديل على المميزات -->
+<div class="modal fade" id="EditOnFeatureModal" tabindex="-1" aria-labelledby="modernModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <!-- رأس المودال -->
+        <div class="modal-header d-flex flex-row-reverse">
+          <h5 class="modal-title ms-auto" id="modernModalLabel"> تعديل فئه</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+        </div>
+  
+        <!-- جسم المودال -->
+        <div class="modal-body">
+          <form [formGroup]="editOnFeature" (ngSubmit)="onSubmitEditOnFeature()">
+            <div class="mb-3">
+              <label for="nameInput" class="form-label">الاسم</label>
+              <input type="text" formControlName="title" class="form-control" id="nameInput" placeholder="أدخل الاسم" />
+            </div>
+            {{featureId}}
+            <!-- تذييل المودال -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+              <button type="submit" [disabled]="editOnFeature.invalid" class="btn btn-primary"
+                data-bs-dismiss="modal">تعديل</button>
+            </div>
+          </form>
+        </div>
+  
+  
+      </div>
+    </div>
+ </div>
+  
+  <!-- حذف ميزه -->
+  <div class="modal fade" id="DeleteFeatureModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header d-flex flex-row-reverse">
+          <h5 class="modal-title ms-auto" id="modernModalLabel">حذف</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+        </div>
+        <div class="modal-body">
+          حذف الحى :
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+          <button type="button" (click)="deleteFeatureObserve()" class="btn btn-danger"
+            data-bs-dismiss="modal">حذف</button>
+        </div>
+      </div>
+    </div>
+  </div>

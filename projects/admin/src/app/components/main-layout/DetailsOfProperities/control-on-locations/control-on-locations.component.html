@@ -1,0 +1,150 @@
+<div class="custom-container mt-2 ">
+  <h5 class="text-center mb-4">المناطق</h5>
+
+  <div class="grid text-right" style="--bs-columns: 12; --bs-gap: 1rem;">
+    <div class="g-col-4  custom-bg rounded shadow-sm">
+      <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-secondary mt-2" data-bs-toggle="modal"
+         data-bs-target="#AddCityModal">
+          اضف مدينة
+        </button>
+      </div>
+
+    </div>
+
+
+
+    <div class="g-col-4  custom-bg rounded shadow-sm">
+      <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-secondary mt-2" data-bs-toggle="modal"
+         data-bs-target="#AddCityModal" disabled>
+          اضف قرية
+        </button>
+      </div>
+      
+      <div class="container mt-2">
+        <table class="table modern-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>الاسم</th>
+              <th>رقم المدينه</th>
+              <th>حذف</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of districts; let i = index">
+              <td>{{ row.id }}</td>
+              <td>{{ row.name }}</td>
+              <td>{{row.cityId}}</td>
+              <td><!-- زر فتح المودال -->
+                <button type="button" (click)="districtId=row.id; districtNameM=row.name" class="btn btn-danger"
+                  data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  -
+                </button>
+              </td>
+
+
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+    <div class="g-col-4  custom-bg rounded shadow-sm">
+      <div class="container mt-5">
+        <h1>Zidan</h1>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<br>
+<br>
+<h1>{{cityId}}</h1>
+<h1>{{districtId}}</h1>
+
+<!--اضف مدينه -->
+<div class="modal fade" id="AddCityModal" tabindex="-1" aria-labelledby="modernModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- رأس المودال -->
+      <div class="modal-header d-flex flex-row-reverse">
+        <h5 class="modal-title ms-auto" id="modernModalLabel">إضافة اسم</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+      </div>
+
+      <!-- جسم المودال -->
+      <div class="modal-body">
+        <form [formGroup]="cityForm" (ngSubmit)="onSubmitCity()">
+          <div class="mb-3">
+            <label for="nameInput" class="form-label">الاسم</label>
+            <input type="text" formControlName="name" class="form-control" id="nameInput" placeholder="أدخل الاسم" />
+          </div>
+
+          <!-- تذييل المودال -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+            <button type="submit" [disabled]="cityForm.invalid" class="btn btn-primary"
+              data-bs-dismiss="modal">إضافة</button>
+          </div>
+        </form>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- اضف حى -->
+<div class="modal fade" id="modernModal" tabindex="-1" aria-labelledby="modernModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- رأس المودال -->
+      <div class="modal-header d-flex flex-row-reverse">
+        <h5 class="modal-title ms-auto" id="modernModalLabel">إضافة اسم</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+      </div>
+
+      <!-- جسم المودال -->
+      <div class="modal-body">
+        <form [formGroup]="districtForm" (ngSubmit)="onSubmitDistrict()">
+          <div class="mb-3">
+            <label for="nameInput" class="form-label">الاسم</label>
+            <input type="text" formControlName="name" class="form-control" id="nameInput" placeholder="أدخل الاسم" />
+          </div>
+
+          <!-- تذييل المودال -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+            <button type="submit" [disabled]="districtForm.invalid" class="btn btn-primary"
+              data-bs-dismiss="modal">إضافة</button>
+          </div>
+        </form>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- حذف حى -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header d-flex flex-row-reverse">
+        <h5 class="modal-title ms-auto" id="modernModalLabel">حذف</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+      </div>
+      <div class="modal-body">
+        حذف الحى : {{districtNameM}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+        <button type="button" (click)="deleteDistirct()" class="btn btn-danger" data-bs-dismiss="modal">حذف</button>
+      </div>
+    </div>
+  </div>
+</div>

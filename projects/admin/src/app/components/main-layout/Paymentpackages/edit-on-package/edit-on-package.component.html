@@ -1,0 +1,80 @@
+<div class="custom-container mt-2 ">
+  <h5 class="text-center mb-4">{{packageId}} </h5>
+
+
+  <div class="grid text-right" style="--bs-columns: 12; --bs-gap: 1rem;">
+
+    <div class="g-col-7  custom-bg rounded shadow-sm">
+      <div class="container mt-5">
+        <form [formGroup]="packageForm" (ngSubmit)="onSubmitPackages()">
+          <!-- عنوان  -->
+          <div class="mb-3">
+            <label for="propertyTitle" class="form-label">عنوان</label>
+            <input type="text" formControlName="title" id="propertyTitle" class="form-control" placeholder="عنوان" />
+          </div>
+
+          <!-- وصف  -->
+          <div class="mb-3">
+            <label for="propertyDescription" class="form-label">الوصف</label>
+            <textarea formControlName="description" id="propertyDescription" class="form-control" rows="2"
+              placeholder="الوصف"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <div class="row gx-3 gy-2 align-items-center">
+              <div class="col-sm-8">
+                <!-- سعر -->
+                <label for="propertyPrice" class="form-label">السعر (ريال)</label>
+                <input formControlName="price" type="number" id="propertyPrice" class="form-control"
+                  placeholder="Enter property price" />
+              </div>
+
+              <!-- مدة الباقه -->
+              <div class="col-sm-4">
+                <label class="form-label" for="specificSizeSelect1">نوع الباقة</label>
+                <select formControlName="packageType" class="form-select" id="specificSizeSelect1">
+                  <option value="" disabled>حدد نوع الباقة ...</option>
+                  <option value="free">مجانية</option>
+                  <option value="monthly">شهرية</option>
+                  <option value="yearly">سنوية</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- مميزات الباقه -->
+          <div class="mb-3">
+              <label class="form-label mb-3">مميزات</label>
+              <div class="d-flex" formArrayName="packageFeatures">
+                <ng-container *ngFor="let item of packageItemsList; let i = index">
+                  <div class="form-check me-3">
+                    <input
+                      class="form-check-input"
+                      [formControlName]="i"
+                      type="checkbox"
+                      [id]="'option' + i"
+                    />
+                    <label class="form-check-label" [for]="'option' + i">
+                      {{ item.ar_title }}
+                    </label>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          <!-- زر الحفظ -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary w-50">حفظ</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="g-col-5  custom-bg rounded shadow-sm">
+     <app-package-items></app-package-items>
+    </div>
+
+  </div>
+
+</div>

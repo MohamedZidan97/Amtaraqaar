@@ -1,0 +1,14 @@
+@media (max-width: 990px) {
+    .g-col-9,
+    .g-col-3 {
+      width: 100%; /* اجعل كلا العنصرين بنفس العرض */
+    }
+    .grid {
+      display: flex; /* استخدام flexbox لتوزيع العناصر بشكل متساوٍ */
+      flex-wrap: wrap; /* اجعل العناصر تلتف إذا لم تكن كافية في صف واحد */
+    }
+  
+  }
+  .custom-bg {background-color: #ffffff;}
+
+  

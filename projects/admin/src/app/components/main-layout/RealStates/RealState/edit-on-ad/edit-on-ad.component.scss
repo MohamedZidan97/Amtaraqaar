@@ -1,0 +1,134 @@
+h2 {
+    font-size: 1.8rem;
+    color: #4a90e2;
+  }
+  
+  .bg-light {
+    background-color: #f9f9f9 !important;
+  }
+  
+  .shadow-sm {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-primary {
+    color: #007bff !important;
+  }
+  .custom-container {
+    width: 100%;
+    font-family: 'Tajawal', sans-serif; /* خط مناسب للغة العربية */
+  //    display: flex;
+  }
+  .custom-bg {background-color: #ffffff;}
+  .form-label{
+    font-weight: bold;
+  }
+ input ,select, textarea{
+  border: 2px solid darkblue;
+ }
+ span{
+  font-weight: bold;
+ }
+// 
+@media (max-width: 990px) {
+  .g-col-9,
+  .g-col-3 {
+    width: 100%; /* اجعل كلا العنصرين بنفس العرض */
+  }
+  .grid {
+    display: flex; /* استخدام flexbox لتوزيع العناصر بشكل متساوٍ */
+    flex-wrap: wrap; /* اجعل العناصر تلتف إذا لم تكن كافية في صف واحد */
+  }
+
+}
+//
+
+
+  // show images
+  #image-container {
+    /* إعداد تباعد حديث */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  
+  .card {
+    width: 120px;
+    overflow: hidden;
+    border-radius: 12px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    background: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-img-top {
+    height: 130px;
+    object-fit: cover;
+  }
+  
+  .btn-close {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    font-size: 1rem;
+    padding: 0.5rem;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+  }
+  
+  .btn-close:hover {
+    opacity: 1;
+  }
+  
+  h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+  }
+  
+
+  .multi-select-container {
+    width: 100%;
+    position: relative;
+  }
+  
+  .multi-select-dropdown {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .selected-options {
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .dropdown-options {
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  }
+  
+  .dropdown-options label {
+    display: block;
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .dropdown-options label:hover {
+    background-color: #f0f0f0;
+  }
+  
+  

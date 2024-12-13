@@ -1,0 +1,88 @@
+
+.body {
+    background-color: #e9ecef; /* لون رمادي فاتح */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    direction: rtl;
+}
+.login-container {
+    width: 100%;
+    max-width: 320px;
+    padding: 20px;
+    background-color: #f8f9fa; /* لون رمادي أفتح */
+    border: 1px solid #ced4da; /* لون رمادي متوسط */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+}
+.login-header {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    text-align: center;
+    color: #343a40; /* لون رمادي داكن */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form-control {
+    height: 36px;
+    border-radius: 6px;
+    border: 1px solid #ced4da; /* لون رمادي متوسط */
+    background-color: #e9ecef; /* لون رمادي فاتح */
+}
+.btn-primary {
+    background-color: #6c757d; /* لون رمادي داكن */
+    border: none;
+    height: 36px;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+.btn-primary:hover {
+    background-color: #5a6268; /* لون رمادي أغمق */
+}
+.form-label {
+    font-weight: 500;
+    color: #495057; /* لون رمادي متوسط */
+    margin-bottom: 5px;
+}
+.forgot-password {
+    font-size: 12px;
+    color: #6c757d; /* لون رمادي داكن */
+    text-align: center;
+    margin-top: 10px;
+}
+.forgot-password:hover {
+    text-decoration: underline;
+}
+.additional-info {
+    text-align: center;
+    font-size: 14px;
+    color: #6c757d; /* لون رمادي داكن */
+    margin-top: 20px;
+}
+.additional-info a {
+    color: #495057; /* لون رمادي متوسط */
+    text-decoration: none;
+}
+.additional-info a:hover {
+    text-decoration: underline;
+}
+
+.ng-valid:not(form) {
+    border-left: 5px solid #42A948; /* green */
+  }
+  
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+  }
+  .logo-style {
+    width: 50px; /* العرض المطلوب */
+    height: 50px; /* الارتفاع المطلوب */
+    object-fit: contain; /* لضمان الحفاظ على نسب الصورة */
+    margin: auto; /* لتوسيط الصورة */
+  }

@@ -1,0 +1,24 @@
+export interface IGetPropertyById {
+    title:string,
+    price:number,
+    room:number,
+    bathroom:number,
+    floor:number,
+    area:number,
+    section:string,
+    status?:string,
+    advertiser_type?:string,
+    description?:string,
+    location?:string,
+    active?:boolean
+    media_files:{url:string,alt:string}[],
+    categoryIds:number[],
+    subCategoryIds:number[],
+    featureIds:number[],
+    cityId?:number,
+    cityName?:string,
+    governorateId?:number,
+    governorateName?:string,
+    districtId?:number,
+    districtName?:string
+}

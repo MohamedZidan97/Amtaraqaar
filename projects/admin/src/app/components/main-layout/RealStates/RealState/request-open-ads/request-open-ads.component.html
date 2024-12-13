@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Table</title>
+
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">طلبات اضافة أعلان</h2>
+        <div class="table-responsive">
+            <table class="table modern-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>صوره</th>
+                        <th>عنوان</th>
+                        <th>الموقع</th>
+                        <th>المشاهدات</th>
+                        <th>
+                            
+                            <button  class="btn btn-sm btn-secondary" (click)="sortByDate()">
+                                التاريخ     <i class="bi bi-arrow-up"></i>
+                            </button>
+                        </th>
+                        <th>الحاله</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of paginatedData; let i = index">
+                        <td>{{ row.id }}</td>
+                        <td><img [src]="row.image" alt="{{ row.name }}" class="img-thumbnail" width="50"></td>
+                        <td>{{ row.name }}</td>
+                        <td>{{ row.position }}</td>
+                        <td>{{ row.office }}</td>
+                        <td>{{ row.date }}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" (click)="editRow(row)">Edit</button>
+                            <button class="btn btn-danger btn-sm"
+                                (click)="deleteRow(i + currentPage * pageSize)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Pagination Controls -->
+            <div class="d-flex justify-content-between mt-3">
+                <div class="d-flex align-items-center m-4 gap-3">
+                    <label for="pageSizeInput" class="form-label mb-0 fw-bold">Page Size:</label>
+                    <input type="number" id="pageSizeInput" [(ngModel)]="pageSize" class="form-control"
+                        style="width: 100px;">
+                    <h4 class="mb-0">Current Page: <span class="fw-bold">{{currentPage+1}}</span>
+                        From
+                        <span>{{totalPages}}</span>
+                    </h4>
+                </div>
+                <div>
+                    <button class="btn btn-primary" (click)="prevPage()" [disabled]="currentPage === 0">السابق</button>
+                    <button class="btn btn-primary m-4" (click)="nextPage()"
+                        [disabled]="(currentPage + 1) * pageSize >= data.length">التالى</button>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+
+</body>
+<br><br>
+
+</html>

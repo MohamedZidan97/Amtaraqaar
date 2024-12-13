@@ -1,0 +1,25 @@
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  .card-header {
+    font-size: 1.5rem;
+    padding: 20px;
+  }
+  
+  .card-body ul {
+    margin: 20px 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  .card-body ul li {
+    padding: 5px 0;
+  }
+  
+  .card .btn {
+    margin-top: 10px;
+    border-radius: 20px;
+  }
+  

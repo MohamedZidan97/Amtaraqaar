@@ -1,0 +1,85 @@
+<div class="container mt-5">
+    <table class="table modern-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>صوره</th>
+            <th>عنوان</th>
+            <th>المشاهدات</th>
+            <th>الرقم المميز</th>
+            <th>تاريخ الانشاء</th>
+            <th>الحاله</th>
+            <th>تعديل</th>
+            <th>حذف</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of paginatedData; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <img [src]="baseUrl + row.media_files[0].url" [alt]="row.media_files[0].alt" width="50" height="50" />
+            </td>
+            <td>{{ row.title }}</td>
+            <td>{{ row.number_of_views }}</td>
+            <td>{{ row.ad_number }}</td>
+            <td>{{ row.handover| date: 'dd/MM/yyyy' }}</td>
+            <td>
+              <span
+                [class]="row.status === 'active' ? 'badge bg-success' : 'badge bg-info'">
+                {{ row.status === 'pending' ? 'بيع' :  'ايجار' }}
+              </span>
+            </td>
+            <td>
+              <button type="button" class="btn btn-secondary" [routerLink]="['/EditOnAd',row.id]" routerLinkActive="active" >
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger" (click)="propertyId=row.id" data-bs-toggle="modal"
+              data-bs-target="#DeletePropertyModal">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-between mt-3">
+        <div class="d-flex align-items-center m-4 gap-3">
+            <label for="pageSizeInput" class="form-label mb-0 fw-bold">Page Size:</label>
+            <input type="number" id="pageSizeInput" [(ngModel)]="pageSize" class="form-control"
+                style="width: 100px;">
+            <h4 class="mb-0">Current Page: <span class="fw-bold">{{currentPage+1}}</span>
+                From
+                <span>{{totalPages}}</span>
+            </h4>
+        </div>
+        <div>
+            <button class="btn btn-primary" (click)="prevPage()" [disabled]="currentPage === 0">السابق</button>
+            <button class="btn btn-primary m-4" (click)="nextPage()"
+                [disabled]="(currentPage + 1) * pageSize >= data.length">التالى</button>
+        </div>
+    </div>
+      
+</div>
+
+
+<!-- حذف الباقه -->
+<div class="modal fade" id="DeletePropertyModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header d-flex flex-row-reverse">
+        <h5 class="modal-title ms-auto" id="modernModalLabel">حذف</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+      </div>
+      <div class="modal-body">
+        حذف الحى :
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+        <button type="button" (click)="deletePropertyObserve()" class="btn btn-danger"
+          data-bs-dismiss="modal">حذف</button>
+      </div>
+    </div>
+  </div>
+</div>
