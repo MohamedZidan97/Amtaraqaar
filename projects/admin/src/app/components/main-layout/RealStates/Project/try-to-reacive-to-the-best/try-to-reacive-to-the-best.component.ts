@@ -2,27 +2,38 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PropertyService } from '../Services/property.service';
-import { IGetPropertyById } from '../Models/iget-property-by-id';
 import { DetailsOfPropertyService } from '../../../DetailsOfProperities/Services/details-of-property.service';
 import { ICategory } from '../../../DetailsOfProperities/Models/icategory';
 import { environment } from '../../../../../Environments/environment.prod';
+import { PropertyService } from '../../RealState/Services/property.service';
+import { IGetPropertyById } from '../../RealState/Models/iget-property-by-id';
 
 @Component({
-  selector: 'app-edit-on-ad',
+  selector: 'app-try-to-reacive-to-the-best',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './edit-on-ad.component.html',
-  styleUrl: './edit-on-ad.component.scss'
+  templateUrl: './try-to-reacive-to-the-best.component.html',
+  styleUrl: './try-to-reacive-to-the-best.component.scss'
 })
-export class EditOnAdComponent implements OnInit {
+export class TryToReaciveToTheBestComponent {
   baseUrl: string = environment.baseUrl;
+
   imageList: string[] = [];
   imageListForm: { url: string, alt: string }[] = [];
+
+  proFtsList: { name: string, flag: boolean }[] = [
+    { name: 'واى فاى', flag: false },
+    { name: 'صاله', flag: true },
+    { name: 'واى ', flag: false }]
+
+
   categoryList: ICategory[] = [];
   subCategoryList: ICategory[] = [];
   featureList: ICategory[] = [];
+
+  //featureList: { id: number, name: string }[] = [];
   dropdownOpen = false;
+
   editOnAd: FormGroup;
   propertyId: number = 0;
   subCategoryArray: number[] = []
@@ -105,7 +116,7 @@ export class EditOnAdComponent implements OnInit {
 
               this.categoryList.forEach((feature) => {
                 const isSelected = mappedProperty.categoryIds.some((item: any) => item === feature.id); // التحقق من التحديد
-             //   console.log(feature.id, isSelected);
+                console.log(feature.id, isSelected);
                 this.categoryIds.push(this.fb.control(isSelected)); // إضافة FormControl
 
                 if (isSelected) {
@@ -134,7 +145,7 @@ export class EditOnAdComponent implements OnInit {
               this.featureList = res.data; // Update BehaviorSubject
               this.featureList.forEach((feature) => {
                 const isSelected = mappedProperty.featureIds.some((item: any) => item === feature.id); // التحقق من التحديد
-               // console.log(feature.id, isSelected);
+                console.log(feature.id, isSelected);
                 this.featureIds.push(this.fb.control(isSelected)); // إضافة FormControl
 
               });
@@ -180,50 +191,41 @@ export class EditOnAdComponent implements OnInit {
       const selectIdCat = this.categoryList
         .map((item, index) => (data.categoryIds[index] ? item.id : null))
         .filter((id) => id !== null) as number[];
-     // console.log(selectIdCat)
+        console.log(selectIdCat)
 
       // sub category
       const selectIdSubCat = this.subCategoryArray;
-      //console.log(selectIdSubCat)
+      console.log(selectIdSubCat)
       // feature
       const selectIdFeat = this.featureList
         .map((item, index) => (data.featureIds[index] ? item.id : null))
         .filter((id) => id !== null) as number[];
-      //console.log(selectIdFeat);
+        console.log(selectIdFeat);
 
 
       // image
 
       // إعداد بيانات الـ IAddPackage
-      const formData = this.fileList; // استخدام fileList التي تم بناؤها
-      formData.append("title", String(data.title)); // إضافة أي بيانات إضافية إذا لزم الأمر
-      formData.append("description", String(data.description));
-      formData.append("price", (data.price));
-      formData.append("address", String(data.title));
-      formData.append("section",String( data.section));
-      formData.append("spaces", String(data.title));
-      formData.append("room", String(data.room));
-      formData.append("bathroom", String(data.bathroom));
-      formData.append("floor", String(data.floor));
+      const packageData: any = {
+        title: data.title,
+       // description: data.description,
+      //  status: data.status,
 
-
-
-      // const packageData: any = {
-      //   title: data.title,
-      //   description: data.description,
-      //   price: data.price,
-      //   address: "fsfs",
-      //    img:this.fileList,
-      //   section: data.section,
-      //   spaces: "fsd",
-      //   room: data.room as String,
-      //   bathroom: data.bathroom as String,
-      //   floor: data.floor as String,
-      // };
-      console.log(formData.get('spaces'));
+        price: data.price,
+        address:"fsfs",
+         img:this.fileList,
+       // images:this.fileListt,
+        section: data.section,
+        spaces:"fsd",
+        room: data.room,
+        bathroom: data.bathroom,
+        floor: data.floor,
+        // area: data.area,
+      };
+      console.log(packageData);
 
       // إرسال البيانات إلى الـ API
-      this.propertySer.updateProperty(this.propertyId, formData).subscribe(
+      this.propertySer.updateProperty(this.propertyId, packageData).subscribe(
         {
           next: (response) => {
             this.editOnAd.reset();
@@ -248,30 +250,27 @@ export class EditOnAdComponent implements OnInit {
 
   // submitting
   onSubmit() {
-
-    this.updatePropertyObserve();
+    
+   this.updatePropertyObserve();
   }
 
   // Method to trigger file upload
   triggerFileUpload(fileInput: HTMLInputElement): void {
     fileInput.click();
   }
- fileList = new FormData();
+  fileList = new FormData(); 
   // Method to handle file selection
   onFileSelected(event: any): void {
     const input = event.target as HTMLInputElement;
 
     if (input.files) {
-      const fileTarget = event.target.files; // الحصول على الملفات
-      if (fileTarget.length > 0) {
-        for (let i = 0; i < fileTarget.length; i++) {
-          this.fileList.append("img", fileTarget[i]); // إضافة الملفات إلى FormData
-        }
-      }
-      console.log("done....", this.fileList.get('img'));
+      const fileTarget = event.currentTarget.files[0];
+      this.fileList.append('img',fileTarget);
+
+      console.log("done....",fileTarget);
       Array.from(input.files).forEach((file) => {
         //this.fileListt.push(file);
-        // console.log(this.fileList.get('file'));
+       // console.log(this.fileList.get('file'));
         const reader = new FileReader();
 
         reader.onload = (e: ProgressEvent<FileReader>) => {
@@ -370,3 +369,4 @@ export class EditOnAdComponent implements OnInit {
   }
 
 }
+

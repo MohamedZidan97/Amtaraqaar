@@ -32,7 +32,7 @@ export class EditOnPackageComponent implements OnInit {
       title: [''],
       description: [''],
       packageType: [''],
-      price: [''],
+      price: ['',Validators.required],
       packageFeatures: fb.array([])
     });
   }
@@ -73,7 +73,7 @@ export class EditOnPackageComponent implements OnInit {
             en_title: data.en_title,
             ar_title: data.ar_title,
             ar_description: data.ar_description,
-            type: data.package_type,
+            type: data.type,
             price: data.price,
             package_items: data.package_items.map((item: any) => ({
               id: item.id,

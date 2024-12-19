@@ -1,80 +1,74 @@
-<div class="custom-container mt-2 ">
-  <h5 class="text-center mb-4">{{packageId}} </h5>
 
+<div class="container mt-4">
+  <h4 class="text-center mb-4 fw-bold text-primary">تعديل الباقة</h4>
 
-  <div class="grid text-right" style="--bs-columns: 12; --bs-gap: 1rem;">
-
-    <div class="g-col-7  custom-bg rounded shadow-sm">
-      <div class="container mt-5">
+  <div class="row g-4">
+    <!-- Left Side - Form -->
+    <div class="col-lg-7">
+      <div class="p-4 shadow rounded-3 bg-white">
         <form [formGroup]="packageForm" (ngSubmit)="onSubmitPackages()">
-          <!-- عنوان  -->
+          <!-- Title -->
           <div class="mb-3">
-            <label for="propertyTitle" class="form-label">عنوان</label>
-            <input type="text" formControlName="title" id="propertyTitle" class="form-control" placeholder="عنوان" />
+            <label for="propertyTitle" class="form-label fw-semibold">عنوان</label>
+            <input type="text" formControlName="title" id="propertyTitle" class="form-control"
+              placeholder="أدخل العنوان" />
           </div>
 
-          <!-- وصف  -->
+          <!-- Description -->
           <div class="mb-3">
-            <label for="propertyDescription" class="form-label">الوصف</label>
-            <textarea formControlName="description" id="propertyDescription" class="form-control" rows="2"
-              placeholder="الوصف"></textarea>
+            <label for="propertyDescription" class="form-label fw-semibold">الوصف</label>
+            <textarea formControlName="description" id="propertyDescription" class="form-control" rows="3"
+              placeholder="أدخل الوصف"></textarea>
           </div>
 
-          <div class="mb-3">
-            <div class="row gx-3 gy-2 align-items-center">
-              <div class="col-sm-8">
-                <!-- سعر -->
-                <label for="propertyPrice" class="form-label">السعر (ريال)</label>
-                <input formControlName="price" type="number" id="propertyPrice" class="form-control"
-                  placeholder="Enter property price" />
-              </div>
-
-              <!-- مدة الباقه -->
-              <div class="col-sm-4">
-                <label class="form-label" for="specificSizeSelect1">نوع الباقة</label>
-                <select formControlName="packageType" class="form-select" id="specificSizeSelect1">
-                  <option value="" disabled>حدد نوع الباقة ...</option>
-                  <option value="free">مجانية</option>
-                  <option value="monthly">شهرية</option>
-                  <option value="yearly">سنوية</option>
-                </select>
-              </div>
+          <!-- Price & Package Type -->
+          <div class="row mb-3">
+            <div class="col-md-8">
+              <label for="propertyPrice" class="form-label fw-semibold">السعر (ريال)</label>
+              <input formControlName="price" type="number" id="propertyPrice" class="form-control"
+                placeholder="أدخل السعر" />
+            </div>
+            <div class="col-md-4">
+              <label for="specificSizeSelect1" class="form-label fw-semibold">نوع الباقة</label>
+              <select formControlName="packageType" class="form-select" id="specificSizeSelect1">
+                <option value="" disabled>حدد نوع الباقة</option>
+                <option value="free">مجانية</option>
+                <option value="monthly">شهرية</option>
+                <option value="yearly">سنوية</option>
+              </select>
             </div>
           </div>
 
-
-          <!-- مميزات الباقه -->
+          <!-- Features -->
           <div class="mb-3">
-              <label class="form-label mb-3">مميزات</label>
-              <div class="d-flex" formArrayName="packageFeatures">
-                <ng-container *ngFor="let item of packageItemsList; let i = index">
-                  <div class="form-check me-3">
-                    <input
-                      class="form-check-input"
-                      [formControlName]="i"
-                      type="checkbox"
-                      [id]="'option' + i"
-                    />
-                    <label class="form-check-label" [for]="'option' + i">
-                      {{ item.ar_title }}
-                    </label>
-                  </div>
-                </ng-container>
-              </div>
+            <label class="form-label fw-semibold">المميزات</label>
+            <div class="d-flex flex-wrap gap-3" formArrayName="packageFeatures">
+              <ng-container *ngFor="let item of packageItemsList; let i = index">
+                <div class="form-check">
+                  <input class="form-check-input" [formControlName]="i" type="checkbox" [id]="'option' + i" />
+                  <label class="form-check-label" [for]="'option' + i">
+                    {{ item.ar_title }}
+                  </label>
+                </div>
+              </ng-container>
             </div>
-          <!-- زر الحفظ -->
+          </div>
+
+          <!-- Save Button -->
           <div class="text-center">
-            <button type="submit" class="btn btn-primary w-50">حفظ</button>
+            <button type="submit" [disabled]="packageForm.invalid" class="btn btn-primary btn-lg w-100 shadow-sm">
+              <i class="bi bi-save me-2"></i> حفظ
+            </button>
           </div>
         </form>
       </div>
     </div>
 
-
-    <div class="g-col-5  custom-bg rounded shadow-sm">
-     <app-package-items></app-package-items>
+    <!-- Right Side - Package Items -->
+    <div class="col-lg-5">
+     
+        <app-package-items></app-package-items>
+    
     </div>
-
   </div>
-
 </div>

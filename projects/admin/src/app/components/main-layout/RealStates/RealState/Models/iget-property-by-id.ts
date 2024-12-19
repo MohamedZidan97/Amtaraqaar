@@ -11,7 +11,7 @@ export interface IGetPropertyById {
     description?:string,
     location?:string,
     active?:boolean
-    media_files:{url:string,alt:string}[],
+    media_files:any,
     categoryIds:number[],
     subCategoryIds:number[],
     featureIds:number[],

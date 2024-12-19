@@ -1,154 +1,102 @@
-<div class="custom-container mt-2 ">
-    <h5 class="text-center mb-4">{{categoryId}} </h5>
-  
-  
-    <div class="grid text-right" style="--bs-columns: 12; --bs-gap: 1rem;">
-  
-      <div class="g-col-5  custom-bg rounded shadow-sm">
-        <div class="container mt-5">
+<div class="custom-container mt-2">
+  <h5 class="text-center mb-4">{{ categoryId }} </h5>
+
+  <div class="row g-4 justify-content-center">
+
+    <!-- Left Section -->
+    <div class="col-md-5">
+      <div class="card shadow-lg border-0">
+        <div class="card-body">
+          <h5 class="card-title text-center mb-4">إضافة فئة عقار</h5>
+          <div class="mb-3">
+            <form [formGroup]="categoryForm" (ngSubmit)="onSubmitCategoryItem()">
+          
+          
+              <div class="row gx-1 gy-2 align-items-center">
+                <div class="col-sm-10">
+                  <!-- اضف ميزه -->
+                  <input formControlName="title" type="text" id="addCategory" class="form-control" placeholder="اضف فئة" />
+                </div>
+                <div class="col-sm-1">
+                  <button type="submit" [disabled]="categoryForm.invalid" class="btn btn-primary w-8"><i
+                      class="bi bi-plus-circle-fill"></i></button>
+                </div>
+          
+              </div>
+            </form>
+          </div>
+      
+
+          <hr>
+          <!-- Table Section -->
+          <table class="table table-hover modern-table">
+            <thead class="table-light">
+              <tr>
+                <th>#</th>
+                <th>فئة</th>
+                <th>اختار</th>
+                <th>تعديل</th>
+                <th>حذف</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of categoryList; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ row.ar_title }}</td>
+                <td>
+                  <button class="btn btn-outline-primary btn-sm" (click)="chooseCatId = row.id">
+                    <i class="bi bi-plus-circle"></i>
+                  </button>
+                </td>
+                <td>
+                  <button class="btn btn-outline-secondary btn-sm" (click)="categoryId = row.id" data-bs-toggle="modal" data-bs-target="#EditOnCategoryModal">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                </td>
+                <td>
+                  <button class="btn btn-outline-danger btn-sm" (click)="categoryId = row.id" data-bs-toggle="modal" data-bs-target="#DeleteCategoryModal">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Middle Section -->
+    <div class="col-md-3">
+      <div class="card shadow-lg border-0">
+        <div class="card-body">
+          <h5 class="card-title text-center mb-4">تفاصيل الفئة</h5>
+          <ng-container *ngIf="chooseCatId > 0; else NotFoundId">
+
+
             <div class="mb-3">
-              <form [formGroup]="categoryForm" (ngSubmit)="onSubmitCategoryItem()">
-        
-                <div class="mb-3">
-                  <div class="row gx-1 gy-2 align-items-center">
-                    <label for="propertyPrice" class="form-label">اضف فئة عقار</label>
-                    <div class="col-sm-10">
-                      <!-- اضف ميزه -->
-                      <input formControlName="title" type="text" id="propertyPrice" class="form-control"
-                        placeholder="اضف فئة" />
-                    </div>
-                    <div class="col-sm-1">
-                      <button type="submit" [disabled]="categoryForm.invalid" class="btn btn-primary w-8"><i
-                          class="bi bi-plus-circle-fill"></i></button>
-                    </div>
+              <form [formGroup]="categoryForm" (ngSubmit)="onSubmitSubCategoryItem()">
+            
+            
+                <div class="row gx-1 gy-2 align-items-center">
+                  <div class="col-sm-10">
+                    <!-- اضف ميزه -->
+                    <input formControlName="title" type="text" id="addSubCategory" class="form-control" placeholder="اضف فئة" />
                   </div>
+                  <div class="col-sm-1">
+                    <button type="submit" [disabled]="categoryForm.invalid" class="btn btn-success w-8"><i
+                        class="bi bi-plus-circle-fill"></i></button>
+                  </div>
+            
                 </div>
               </form>
             </div>
 
+
+
+
             <hr>
-            <div class="mb-3">
-              <table class="table modern-table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>فئه</th>
-                    <th>اختار</th>
-                    <th>تعديل</th>
-                    <th>حذف</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let row of categoryList  let i = index">
-                    <td>{{ i+1 }}</td>
-                    <td>{{ row.ar_title }}</td>
-                    <td>
-                      <button type="button" class="btn btn-primary" (click)="chooseCatId=row.id">
-                        <i class="bi bi-plus-circle-fill"></i>
-                      </button>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-secondary" (click)="categoryId=row.id" data-bs-toggle="modal"
-                        data-bs-target="#EditOnCategoryModal">
-                        <i class="bi bi-pencil-fill"></i>
-                      </button>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-danger" (click)="categoryId=row.id" data-bs-toggle="modal"
-                        data-bs-target="#DeleteCategoryModal">
-                        <i class="bi bi-trash-fill"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-        
-              </table>
-            </div>
-        
-        </div>
-        
-          
-        <!-- تعديل على المميزات -->
-        <div class="modal fade" id="EditOnCategoryModal" tabindex="-1" aria-labelledby="modernModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <!-- رأس المودال -->
-                <div class="modal-header d-flex flex-row-reverse">
-                  <h5 class="modal-title ms-auto" id="modernModalLabel"> تعديل فئه</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
-                </div>
-          
-                <!-- جسم المودال -->
-                <div class="modal-body">
-                  <form [formGroup]="editOnCategory" (ngSubmit)="onSubmitEditOnCategory()">
-                    <div class="mb-3">
-                      <label for="nameInput" class="form-label">الاسم</label>
-                      <input type="text" formControlName="title" class="form-control" id="nameInput" placeholder="أدخل الاسم" />
-                    </div>
-                    {{categoryId}}
-                    <!-- تذييل المودال -->
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                      <button type="submit" [disabled]="editOnCategory.invalid" class="btn btn-primary"
-                        data-bs-dismiss="modal">تعديل</button>
-                    </div>
-                  </form>
-                </div>
-          
-          
-              </div>
-            </div>
-         </div>
-          
-          <!-- حذف ميزه -->
-          <div class="modal fade" id="DeleteCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header d-flex flex-row-reverse">
-                  <h5 class="modal-title ms-auto" id="modernModalLabel">حذف</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
-                </div>
-                <div class="modal-body">
-                  حذف الحى :
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
-                  <button type="button" (click)="deleteCategoryObserve()" class="btn btn-danger"
-                    data-bs-dismiss="modal">حذف</button>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
-      <div class="g-col-3  custom-bg rounded shadow-sm">
-
-        <div class="container mt-5" >
-        <ng-container *ngIf="chooseCatId > 0; else NotFoundId">
-          <div class="mb-3">
-            <form [formGroup]="categoryForm" (ngSubmit)="onSubmitSubCategoryItem()">
-      
-              <div class="mb-3">
-                <div class="row gx-1 gy-2 align-items-center">
-                  <label for="propertyPrice" class="form-label">اضف فئة عقار</label>
-                  <div class="col-sm-10">
-                    <!-- اضف ميزه -->
-                    <input formControlName="title" type="text" id="propertyPrice" class="form-control"
-                      placeholder="اضف فئة" />
-                  </div>
-                  <div class="col-sm-1">
-                    <button type="submit" [disabled]="categoryForm.invalid" class="btn btn-primary w-8"><i
-                        class="bi bi-plus-circle-fill"></i></button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-
-          <hr>
-          <div class="mb-3">
-            <table class="table modern-table">
-              <thead>
+            <table class="table table-hover modern-table">
+              <thead class="table-light">
                 <tr>
                   <th>#</th>
                   <th>الاسم</th>
@@ -158,39 +106,154 @@
               </thead>
               <tbody>
                 <ng-container *ngFor="let row of categoryList">
-                <ng-container *ngIf="chooseCatId==row.id">
-                  <tr *ngFor="let row2 of row.children let i = index">
-                    <td>{{ i+1 }}</td>
-                    <td>{{ row2.ar_title }}</td>
-                    <td>
-                      <button type="button" class="btn btn-secondary" (click)="categoryId=row2.id" data-bs-toggle="modal"
-                        data-bs-target="#EditOnCategoryModal">
-                        <i class="bi bi-pencil-fill"></i>
-                      </button>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-danger" (click)="categoryId=row2.id" data-bs-toggle="modal"
-                        data-bs-target="#DeleteCategoryModal">
-                        <i class="bi bi-trash-fill"></i>
-                      </button>
-                    </td>
-                  </tr>
+                  <ng-container *ngIf="chooseCatId == row.id">
+                    <tr *ngFor="let row2 of row.children; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ row2.ar_title }}</td>
+                      <td>
+                        <button class="btn btn-outline-secondary btn-sm" (click)="categoryId = row2.id" data-bs-toggle="modal" data-bs-target="#EditOnCategoryModal">
+                          <i class="bi bi-pencil"></i>
+                        </button>
+                      </td>
+                      <td>
+                        <button class="btn btn-outline-danger btn-sm" (click)="categoryId = row2.id" data-bs-toggle="modal" data-bs-target="#DeleteCategoryModal">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </ng-container>
                 </ng-container>
-              </ng-container>
               </tbody>
             </table>
-          </div>
-      
-        </ng-container>
-        <ng-template #NotFoundId>اختار فئه</ng-template>
+          </ng-container>
+          <ng-template #NotFoundId>
+            <p class="text-center text-muted">اختر فئة لعرض التفاصيل</p>
+          </ng-template>
         </div>
-        
       </div>
-  
-      <div class="g-col-4  custom-bg rounded shadow-sm">
-        <app-control-on-features></app-control-on-features>
-      </div>
-  
     </div>
-  
+
+    <!-- Right Section -->
+    <div class="col-md-4">
+    
+          <app-control-on-features></app-control-on-features>
+       
+    </div>
   </div>
+</div>
+
+
+<!-- Edit Category Modal -->
+<div
+  class="modal fade"
+  id="EditOnCategoryModal"
+  tabindex="-1"
+  aria-labelledby="editCategoryLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header bg-primary text-white d-flex flex-row-reverse">
+        <h5 class="modal-title ms-auto" id="editCategoryLabel">
+          <i class="bi bi-pencil-fill me-1"></i> تعديل فئة
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="إغلاق"
+        ></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <form [formGroup]="editOnCategory" (ngSubmit)="onSubmitEditOnCategory()">
+          <div class="mb-3">
+            <label for="categoryNameInput" class="form-label fw-bold"
+              >اسم الفئة</label
+            >
+            <input
+              type="text"
+              formControlName="title"
+              id="categoryNameInput"
+              class="form-control"
+              placeholder="أدخل الاسم"
+            />
+          </div>
+        </form>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer justify-content-between">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          إلغاء
+        </button>
+        <button
+          type="submit"
+          [disabled]="editOnCategory.invalid"
+          (click)="onSubmitEditOnCategory()"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+        >
+          <i class="bi bi-check-circle me-1"></i> تعديل
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Category Modal -->
+<div
+  class="modal fade"
+  id="DeleteCategoryModal"
+  tabindex="-1"
+  aria-labelledby="deleteCategoryLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header bg-danger text-white d-flex flex-row-reverse">
+        <h5 class="modal-title ms-auto" id="deleteCategoryLabel">
+          <i class="bi bi-trash-fill me-1"></i> حذف فئة
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="إغلاق"
+        ></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body text-center">
+        <p class="fs-5 mb-3">هل أنت متأكد أنك تريد حذف هذه الفئة؟</p>
+        <p class="fw-bold text-danger">سيتم حذف البيانات نهائيًا!</p>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer justify-content-between">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          إلغاء
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="deleteCategoryObserve()"
+          data-bs-dismiss="modal"
+        >
+          <i class="bi bi-trash me-1"></i> حذف
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

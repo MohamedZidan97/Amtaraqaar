@@ -1,5 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { AuthService } from '../auth/Services/auth.service';
 @Component({
   selector: 'app-main-layout',
   standalone: true,
@@ -9,6 +10,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 })
 export class MainLayoutComponent implements AfterViewInit {
   
+  constructor(private authService:AuthService){}
    // يتم تنفيذ الكود بعد أن يتم تحميل الـ DOM
    ngAfterViewInit() {
     // العثور على زر التبديل (Toggle)
@@ -23,5 +25,11 @@ export class MainLayoutComponent implements AfterViewInit {
         content.classList.toggle('fullwidth');
       });
     }
+  }
+
+
+
+  logOut() {
+    this.authService.logOut();
   }
 }

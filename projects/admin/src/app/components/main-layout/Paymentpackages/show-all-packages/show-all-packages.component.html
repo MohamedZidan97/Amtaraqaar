@@ -1,35 +1,40 @@
 <div class="container my-5">
   <div class="text-center mb-4">
-    <h2>اختر الباقة المناسبة لك</h2>
-    <p>مجموعة من الخيارات لتناسب احتياجاتك</p>
+    <h2>ادارة نظام الباقات</h2>
+    <p>تحكم بنفسك فى باقاتك</p>
   </div>
   <button type="button" class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#AddPackageModal">
     اضافة باقة
   </button>
   <hr>
-  <div class="row g-3 ">
+  <div class="row ">
     <!-- الباقة المجانية -->
     <ng-container *ngFor="let it of packagesList">
       <div class="col-md-4">
         <div class="card text-center shadow">
           <div class="card-header bg-light">
             <h4 class="card-title">{{it.ar_title}}</h4>
-            <p class="text-muted">{{it.price}} جنيه/شهرياً</p>
+            <ng-container *ngIf="it.type != 'free'; else tempTypePackage">
+              <p class="text-muted">{{it.price}} جنيه/{{getTypePackage(it.type)}}</p>
+            </ng-container>
+            <ng-template #tempTypePackage>
+              <p class="text-muted">مجانا</p>
+             </ng-template>
           </div>
           <div class="card-body">
             <ul class="list-unstyled">
-              <li>{{it.type}}</li>
+              
               <li>{{it.ar_description}}</li>
-              <li>{{it.tenant_type}}</li>
               <li>
                  <h3>المميزات</h3>
                 <ng-container *ngFor="let item of it.package_items">
                   <li>{{item.ar_title}}</li>
                 </ng-container>
               </li>
+              <hr>
 
-              <li>تاريخ الانشاء : {{it.created_at | date:'fullDate' }}</li>
-              <li>تاريخ اخر تحديث : {{it.updated_at | date:'fullDate' }}</li>
+              <li> الانشاء : {{it.created_at | date:'fullDate' }}</li>
+              <li> اخر تحديث : {{it.updated_at | date:'fullDate' }}</li>
 
             </ul>
             <button class="btn btn-outline-primary m-2" [routerLink]="['/EditOnPackage',it.id]">تعديل</button>
@@ -52,7 +57,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
       </div>
       <div class="modal-body">
-        حذف الحى :
+        حذف الباقة :
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
@@ -62,80 +67,79 @@
     </div>
   </div>
 </div>
-<!-- تعديل على المميزات -->
+<!-- اضف بافة -->
+ <!-- Modern Modal -->
 <div class="modal fade" id="AddPackageModal" tabindex="-1" aria-labelledby="modernModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
+  
       <!-- رأس المودال -->
-      <div class="modal-header d-flex flex-row-reverse">
-        <h5 class="modal-title ms-auto" id="modernModalLabel"> اضافة باقة </h5>
+      <div class="modal-header">
+        <h5 class="modal-title" id="modernModalLabel">إضافة باقة</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
       </div>
 
       <!-- جسم المودال -->
       <div class="modal-body">
         <form [formGroup]="packageForm" (ngSubmit)="onSubmitPackages()">
-          <!-- عنوان  -->
+
+          <!-- عنوان -->
           <div class="mb-3">
-            <label for="propertyTitle" class="form-label">عنوان</label>
-            <input type="text" formControlName="title" id="packageTitle" class="form-control" placeholder="عنوان" />
+            <label for="packageTitle" class="form-label">عنوان</label>
+            <input type="text" formControlName="title" id="packageTitle" class="form-control" placeholder="أدخل العنوان" />
           </div>
 
-          <!-- وصف  -->
+          <!-- الوصف -->
           <div class="mb-3">
-            <label for="propertyDescription" class="form-label">الوصف</label>
+            <label for="packageDescription" class="form-label">الوصف</label>
             <textarea formControlName="description" id="packageDescription" class="form-control" rows="2"
-              placeholder="الوصف"></textarea>
-          </div>
-          <!-- عنوان  -->
-          <div class="mb-3">
-            <label for="propertyTitle" class="form-label">عنوان</label>
-            <input type="file" formControlName="logo" id="packageLogo" class="form-control" placeholder="عنوان" />
+              placeholder="أدخل الوصف"></textarea>
           </div>
 
+          <!-- اختيار ملف -->
           <div class="mb-3">
-            <div class="row gx-3 gy-2 align-items-center">
-              <div class="col-sm-8">
-                <!-- سعر -->
-                <label for="propertyPrice" class="form-label">السعر (ريال)</label>
-                <input formControlName="price" type="number" id="propertyPrice" class="form-control"
-                  placeholder="Enter property price" />
-              </div>
+            <label for="packageLogo" class="form-label">شعار الباقة</label>
+            <input type="file" formControlName="logo" id="packageLogo" class="form-control" />
+          </div>
 
-              <!-- مدة الباقه -->
-              <div class="col-sm-4">
-                <label class="form-label" for="specificSizeSelect1">نوع الباقة</label>
-                <select formControlName="packageType" class="form-select" id="specificSizeSelect1">
-                  <option value="" disabled>حدد نوع الباقة ...</option>
-                  <option value="free">مجانية</option>
-                  <option value="monthly">شهرية</option>
-                  <option value="annual">سنوية</option>
-                </select>
-              </div>
+          <!-- السعر ونوع الباقة -->
+          <div class="row gx-3 gy-2 align-items-center mb-3">
+            <div class="col-sm-8">
+              <label for="propertyPrice" class="form-label">السعر (ريال)</label>
+              <input type="number" formControlName="price" id="propertyPrice" class="form-control"
+                placeholder="أدخل السعر" />
+            </div>
+            <div class="col-sm-4">
+              <label for="packageType" class="form-label">نوع الباقة</label>
+              <select formControlName="packageType" class="form-select" id="packageType">
+                <option value="" disabled selected>حدد النوع...</option>
+                <option value="free">مجانية</option>
+                <option value="monthly">شهرية</option>
+                <option value="annual">سنوية</option>
+              </select>
             </div>
           </div>
 
-
-          <!-- مميزات الباقه -->
-          <div class="mb-3">
-            <label class="form-label mb-3">التصنيف</label>
-            <div class="d-flex" formArrayName="packageFeatures">
+          <!-- تصنيف الباقة -->
+          <div class="mb-4">
+            <label class="form-label">التصنيف</label>
+            <div class="d-flex flex-wrap" formArrayName="packageFeatures">
               <ng-container *ngFor="let item of packageItemsList; let i = index">
                 <div class="form-check me-3">
                   <input class="form-check-input" [formControlName]="i" type="checkbox" [id]="'option' + i" />
-                  <label class="form-check-label" [for]="'option' + i">
-                    {{ item.ar_title }}
-                  </label>
+                  <label class="form-check-label" [for]="'option' + i">{{ item.ar_title }}</label>
                 </div>
               </ng-container>
             </div>
           </div>
-          <div>{{packageForm.value | json}}</div>
+
           <!-- زر الحفظ -->
           <div class="text-center">
-            <button type="submit" class="btn btn-primary w-50" data-bs-dismiss="modal"
-              [disabled]="packageForm.invalid">حفظ</button>
+            <button type="submit" class="btn btn-primary w-50" [disabled]="packageForm.invalid">
+              <i class="bi bi-check-circle me-2"></i>حفظ
+            </button>
           </div>
+
         </form>
       </div>
     </div>

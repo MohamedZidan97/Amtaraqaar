@@ -1,0 +1,50 @@
+/* Glassmorphism Card Effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Input Field Styling */
+.modern-input {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.modern-input:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+/* Buttons */
+.modern-btn {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.modern-btn:hover {
+  background: linear-gradient(135deg, #0056b3, #004085);
+}
+
+.modern-btn-outline {
+  color: #007bff;
+  border: 2px solid #007bff;
+  border-radius: 30px;
+}
+
+.modern-btn-outline:hover {
+  background-color: #2b517a;
+  color: white;
+}
+
+/* Profile Picture */
+.modern-img {
+  border: 5px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}

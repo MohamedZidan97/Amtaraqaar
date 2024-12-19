@@ -1,111 +1,129 @@
-<div class="container mt-5">
+
+
+  
+<div class="card shadow-lg border-0">
+  <div class="card-body">
+    <h5 class="card-title text-center mb-4">إضافة ميزة للباقة</h5>
     <div class="mb-3">
       <form [formGroup]="packageItemForm" (ngSubmit)="onSubmitPackageItem()">
 
         <div class="mb-3">
-          <div class="row gx-3 gy-2 align-items-center">
-            <label for="propertyPrice" class="form-label">اضف ميزة</label>
+          <div class="row gx-1 gy-2 align-items-center">
             <div class="col-sm-10">
               <!-- اضف ميزه -->
               <input formControlName="title" type="text" id="propertyPrice" class="form-control"
-                placeholder="اضف ميزة" />
+                placeholder="اضف فئة" />
             </div>
-            <div class="col-sm-2">
-              <button type="submit" [disabled]="packageItemForm.invalid" class="btn btn-primary w-10"><i
+            <div class="col-sm-1">
+              <button type="submit" [disabled]="packageItemForm.invalid" class="btn btn-primary w-8"><i
                   class="bi bi-plus-circle-fill"></i></button>
             </div>
-
           </div>
         </div>
-
-
       </form>
     </div>
 
+
+
+
     <hr>
-    <div class="mb-3">
-      <table class="table modern-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>الاسم</th>
-            <th>تعديل</th>
-            <th>حذف</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let row of packageItems$ | async; let i = index">
-            <td>{{ i+1 }}</td>
-            <td>{{ row.ar_title }}</td>
-            <td>
-              <button type="button" class="btn btn-secondary" (click)="itemId=row.id" data-bs-toggle="modal"
-                data-bs-target="#EditOnPackageItemModal">
-                <i class="bi bi-pencil-fill"></i>
-              </button>
-            </td>
-            <td>
-              <button type="button" class="btn btn-danger" (click)="itemId=row.id" data-bs-toggle="modal"
-                data-bs-target="#DeletePackageItemModal">
-                <i class="bi bi-trash-fill"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
+    <!-- Table Section -->
+    <table class="table table-hover modern-table">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>ميزة</th>
+          <th>تعديل</th>
+          <th>حذف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of  packageItems$ | async; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ row.ar_title }}</td>
 
-      </table>
-    </div>
-
+          <td>
+            <button class="btn btn-outline-secondary btn-sm" (click)="itemId=row.id" data-bs-toggle="modal"
+              data-bs-target="#EditOnPackageItemModal">
+              <i class="bi bi-pencil"></i>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-outline-danger btn-sm" (click)="itemId=row.id" data-bs-toggle="modal"
+              data-bs-target="#DeletePackageItemModal">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-
-  
+</div>
 <!-- تعديل على المميزات -->
 <div class="modal fade" id="EditOnPackageItemModal" tabindex="-1" aria-labelledby="modernModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <!-- رأس المودال -->
-        <div class="modal-header d-flex flex-row-reverse">
-          <h5 class="modal-title ms-auto" id="modernModalLabel"> تعديل الميزة</h5>
+        <!-- Modal Header -->
+        <div class="modal-header bg-primary text-white d-flex flex-row-reverse">
+          <h5 class="modal-title ms-auto" id="editFeatureLabel">
+            <i class="bi bi-pencil-fill me-1"></i> تعديل الميزة
+          </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
         </div>
   
-        <!-- جسم المودال -->
+        <!-- Modal Body -->
         <div class="modal-body">
           <form [formGroup]="editOnPackageItem" (ngSubmit)="onSubmitEditOnPackageItem()">
             <div class="mb-3">
-              <label for="nameInput" class="form-label">الاسم</label>
-              <input type="text" formControlName="title" class="form-control" id="nameInput" placeholder="أدخل الاسم" />
-            </div>
-            {{itemId}}
-            <!-- تذييل المودال -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-              <button type="submit" [disabled]="editOnPackageItem.invalid" class="btn btn-primary"
-                data-bs-dismiss="modal">تعديل</button>
+              <label for="featureNameInput" class="form-label fw-bold">اسم الميزة</label>
+              <input type="text" formControlName="title" id="featureNameInput" class="form-control"
+                placeholder="أدخل الاسم" />
             </div>
           </form>
         </div>
   
-  
+        <!-- Modal Footer -->
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            إلغاء
+          </button>
+          <button type="submit" [disabled]="editOnPackageItem.invalid" (click)="onSubmitEditOnPackageItem()"
+            class="btn btn-primary" data-bs-dismiss="modal">
+            <i class="bi bi-check-circle me-1"></i> تعديل
+          </button>
+        </div>
       </div>
     </div>
   </div>
+
   
   <!-- حذف ميزه -->
   <div class="modal fade" id="DeletePackageItemModal" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header d-flex flex-row-reverse">
-          <h5 class="modal-title ms-auto" id="modernModalLabel">حذف</h5>
+        <!-- Modal Header -->
+        <div class="modal-header bg-danger text-white d-flex flex-row-reverse">
+          <h5 class="modal-title ms-auto" id="deleteFeatureLabel">
+            <i class="bi bi-trash-fill me-1"></i> حذف فئة
+          </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
         </div>
-        <div class="modal-body">
-          حذف الحى :
+  
+        <!-- Modal Body -->
+        <div class="modal-body text-center">
+          <p class="fs-5 mb-3">هل أنت متأكد أنك تريد حذف هذه الميزة؟</p>
+          <p class="fw-bold text-danger">سيتم حذف البيانات نهائيًا!</p>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
-          <button type="button" (click)="deletePackageItemObserve()" class="btn btn-danger"
-            data-bs-dismiss="modal">حذف</button>
+  
+        <!-- Modal Footer -->
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            إلغاء
+          </button>
+          <button type="button" class="btn btn-danger" (click)="deletePackageItemObserve()" data-bs-dismiss="modal">
+            <i class="bi bi-trash me-1"></i> حذف
+          </button>
         </div>
       </div>
     </div>

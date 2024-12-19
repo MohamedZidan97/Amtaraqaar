@@ -56,6 +56,7 @@ export class ShowAllPackagesComponent implements OnInit {
       },
     });
   }
+  
   getPackageItemObserve() {
     this.payService.getPackageItems().subscribe({
       next: (res) => {
@@ -123,4 +124,13 @@ export class ShowAllPackagesComponent implements OnInit {
   onSubmitPackages() {
     this.addPackageObserve();
   }
+
+  getTypePackage(type:string):string{
+  
+   
+      return (type=="monthly")? "شهرياً": "سنوياً"
+  }
+
+
+
 }

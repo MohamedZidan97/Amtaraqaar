@@ -106,7 +106,6 @@ export class ShowAllAdvsComponent implements OnInit, OnChanges {
     this.paginatedData;
     this.nextPage();
     this.prevPage();
-    this.listLength = this.data.length;
     this.getAllPropertiesObserve();
 
   }
@@ -128,8 +127,10 @@ getAllPropertiesObserve(){
         handover:pro.handover,
         number_of_views: 0,
         ad_number: pro.ad_number,
-        status: pro.status
+        status: pro.status,
+        section:pro.section
       }));
+      this.listLength = this.propertyList.length;
      // this.packagesList = res.data; // تعيين البيانات المستلمة إلى `packagesList`
       console.log(this.propertyList); // طباعة النتيجة للتأكد
     },
@@ -159,7 +160,7 @@ deletePropertyObserve(){
 
   // التحكم بعدد الصفوف المعروضة
   get totalPages(): number {
-    return Math.ceil(this.data.length / this.pageSize);
+    return Math.ceil(this.listLength / this.pageSize);
   }
 
   // تغيير الصفحة
@@ -170,7 +171,7 @@ deletePropertyObserve(){
   }
 
   nextPage() {
-    if ((this.currentPage + 1) * this.pageSize < this.data.length) {
+    if ((this.currentPage + 1) * this.pageSize < this.listLength) {
       this.currentPage++;
     }
   }

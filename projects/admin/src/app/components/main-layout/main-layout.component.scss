@@ -57,11 +57,7 @@ body {
         margin-left: 100px;
 
     }
-
-    .content.fullwidth {
-        // margin-right: 140px;
-        // margin-left: 60px;
-    }
+    
 
     #sidebar.hidden {
         transform: translateX(0);
@@ -83,6 +79,10 @@ body {
         margin-left: 90px;
 
     }
+    .head{
+      margin-top: 20px;
+    }
+
 
     .content.fullwidth {
         margin-right: 150px;
@@ -109,6 +109,14 @@ body {
       
     }
 
+    .dropdown .dropdown-menu {
+      
+      transform: translateX(62px);
+    }
+    .note{
+      margin-right: 140px;
+     // transform: translateX(10px);
+    }
    
 
     #sidebar.hidden {
@@ -120,90 +128,92 @@ body {
 
 
 /* أزرار الشريط الجانبي */
-button i {
-    transition: transform 0.3s;
+/* تغيير تصميم العناصر الفرعية */
+.sub-item {
+    font-size: 0.9rem;
+    padding-left: 20px;
+    transition: all 0.3s ease-in-out;
 }
 
-button:hover i {
-    transform: scale(1.2);
-}
-
-/* تحسين الروابط */
-.nav-link:hover {
-    background-color: #3c4f61;
+.sub-item:hover {
+    background-color: #6c757d;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    color: #ffffff;
+    transform: translateX(5px); /* تحريك النص قليلاً */
 }
 
-.nav-link {
-    color: #fcfbfc;
+.sub-item i {
+    margin-right: 5px; /* تباعد بين الأيقونة والنص */
 }
 
-.collapse a.nav-link {
-    font-size: 0.95rem;
-    padding-left: 10px;
+.nav-link.active, .nav-link:hover {
+    color: #ffffff;
+    background-color: #747c83;
+    border-radius: 5px;
 }
 
-.collapse {
-    padding-left: 10px;
+.collapse .nav-link:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* إضافة خط خفيف */
 }
+
+
+
+
+
+
+
 
 /* شريط التنقل العلوي */
 .navbar {
     z-index: 1030;
     background-color: #c1c4c5;
 }
-
 /* المدخلات */
-.form-control {
-    border-radius: 30px;
-}
-
-.btn-outline-primary {
-    border-radius: 30px;
-    padding: 10px 15px;
-}
-
 .input-group {
-    max-width: 400px;
-    margin-top: 10px;
+    //max-width: 600px;
+  //  margin-top: 10px;
 }
-
-input[type="search"]:focus,
-button:focus {
-    box-shadow: 0 0 5px rgba(84, 90, 97, 0.5);
-}
-
-.btn-outline-secondary:hover {
-    background-color: #64326e;
-    color: #fff;
-}
-
-input.form-control {
-    padding-left: 15px;
-}
-.logo-style {
-    width: 40px; /* العرض المطلوب */
-    height: 40px; /* الارتفاع المطلوب */
-    object-fit: contain; /* لضمان الحفاظ على نسب الصورة */
-    margin: auto; /* لتوسيط الصورة */
+  /////////////////////////////////
+ /* General Button Styling */
+.btn {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn:hover {
+    background-color: #f1f1f1;
+    transform: scale(1.1);
+  }
+  
+  .dropdown-menu {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    transform: translateX(138px);
   }
 
-
+/* Adjust Navbar Logo */
+.logo-style {
+    border: 2px solid #007bff;
+    padding: 2px;
+  }
   
-/* التصميم المتجاوب */
-// @media (max-width: 768px) {
-//     #sidebar {
-//         width: 150px; /* تصغير الشريط الجانبي للأجهزة الصغيرة */
-//     }
-
-//     .content {
-//         margin-right: 80px;
-//         margin-left: 50px;
-
-//     }
-
-//     #sidebar.hidden {
-//         transform: translateX(150%);
-//     }
-// }
+  /* Sidebar Toggle Button Hover Effect */
+  #sidebarToggle {
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  
+  #sidebarToggle:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.1);
+  }
+  
+  /* Search Input Customization */
+  .form-control {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .form-control:focus {
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5);
+    border-color: #007bff;
+  }
+    

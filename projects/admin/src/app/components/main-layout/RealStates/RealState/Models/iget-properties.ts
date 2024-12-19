@@ -5,5 +5,6 @@ export interface IGetProperties {
     number_of_views:number,
     ad_number:number,
     handover:Date,
-    status:string
+    status:string,
+    section:string
 }

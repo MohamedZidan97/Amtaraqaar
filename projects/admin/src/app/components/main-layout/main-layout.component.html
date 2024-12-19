@@ -2,108 +2,225 @@
 <html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شريط التنقل الجانبي والعلوي على غرار يوتيوب</title>
-  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شريط التنقل الجانبي والعلوي على غرار يوتيوب</title>
+
 </head>
 
 <body>
-    <!-- شريط التنقل العلوي -->
-    <nav class="navbar navbar-expand-lg navbar-dark custom-bg fixed-top shadow-sm">
-        <div class="container-fluid">
-            <button class="btn btn-outline-secondary ms-3" id="sidebarToggle">☰</button>
-            <a class="navbar-brand fw-bold" style="color: black; font-family: 'Cairo';" routerLink="/Home"
-                routerLinkActive="active">  <img src="2.png" alt="Image" class="card-img-top rounded logo-style" />
-            </a>
-            <div class="collapse navbar-collapse">
-                <form class="d-flex mx-auto" role="search" aria-label="Search Form">
-                    <div class="input-group">
-                        <input class="form-control" type="search" placeholder="بحث" aria-label="Search Input">
-                        <button class="btn btn-outline-secondary" type="submit" aria-label="Search Button">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div class="d-flex align-items-center">
-                <button class="btn btn-outline-secondary me-2" aria-label="Camera">
-                    <i class="bi bi-camera"></i>
-                </button>
-                <button class="btn btn-outline-secondary me-2" aria-label="Notifications">
-                    <i class="bi bi-bell"></i>
-                </button>
-                <button class="btn btn-outline-secondary" aria-label="User Account">
-                    <i class="bi bi-person"></i>
-                </button>
-            </div>
+  <!-- شريط التنقل العلوي -->
+  <nav class="navbar navbar-expand-lg navbar-dark custom-bg fixed-top shadow-sm">
+    <div class="container-fluid">
+      <!-- Sidebar Toggle Button -->
+      <button class="btn btn-light rounded-circle shadow-sm me-1" id="sidebarToggle" aria-label="Toggle Sidebar">
+        <i class="bi bi-list fs-8"></i>
+      </button>
+
+      <!-- Logo -->
+      <a class="navbar-brand fw-bold d-flex align-items-center" style="color: black; font-family: 'Cairo';"
+        routerLink="/Home" routerLinkActive="active">
+        <img src="2.png" alt="Logo" class="rounded-circle logo-style me-2" style="width: 40px; height: 40px;" />
+        <span class="d-none d-md-inline me-2"> أمتار </span>
+      </a>
+
+      <!-- Search Form -->
+      <form class="d-flex mx-auto w-50" role="search" aria-label="Search Form">
+        <div class="input-group" style="height: 30px; font-size: 12px;max-width: 300px;">
+          <button class="btn btn-primary rounded-end-pill" type="submit" aria-label="Search Button"
+            style="background-color: #4a4c4e; border-color: #0b0c0e;">
+            <i class="bi bi-search"></i>
+          </button>
+          <input class="form-control rounded-start-pill" type="search" placeholder="بحث" aria-label="Search Input"
+            style="font-family: 'Cairo';" />
+
         </div>
-    </nav>
+      </form>
 
-    <!-- الشريط الجانبي -->
-    <div id="sidebar" class="sidebar text-white border-start shadow-lg" 
-    style="height: 100vh;background-color: #979b9a;">
-        <br>
-        <nav class="nav flex-column mt-5 p-3">
-            <!-- Dashboard -->
-            <a class="nav-link active mb-3" routerLink="/Home" routerLinkActive="active" >
-                <i class="bi bi-house-door-fill"></i> 
-                لوحة القيادة
-            </a>
+      <div class="d-flex align-items-center gap-3" style="margin-left: 6%;">
+        <!-- Camera Button -->
+        <!-- <button class="btn btn-light rounded-circle shadow-sm" aria-label="Camera">
+          <i class="bi bi-camera fs-6"></i>
+        </button> -->
 
-            <!-- Collapsible Section - Ads Of Properties -->
-            <a class="nav-link mb-2" data-bs-toggle="collapse" href="#popularSection" role="button" 
-            aria-expanded="false" aria-controls="popularSection">
-                <i class="bi bi-fire"></i> عقارات
-            </a>
-            <div class="collapse"  id="popularSection">
-                <a class="nav-link ms-4 mb-2" routerLink="/ShowAllAdvs" routerLinkActive="active">الاعلانات</a>
+        <!-- Notifications Dropdown -->
+        <div class="dropdown drop">
+          <button class="btn btn-light rounded-circle shadow-sm position-relative" aria-label="Notifications"
+            data-bs-toggle="dropdown" aria-expanded="false" style="width: 40px; height: 40px;">
+            <i class="bi bi-bell fs-6"></i>
+            <!-- Badge -->
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              3
+              <span class="visually-hidden">unread notifications</span>
+            </span>
+          </button>
 
-                <a class="nav-link ms-4 mb-2" routerLink="/RequestsOfAds" routerLinkActive="active">طلبات الاعلان</a>
-                <a class="nav-link ms-4 mb-2"  routerLink="/EditOnAd" routerLinkActive="active">عرض الاعلان </a>
-            </div>
+          <!-- Dropdown Menu -->
+          <ul class="dropdown-menu note dropdown-menu-end shadow-lg p-3 mt-3"
+            style="min-width: 20px; max-height: 400px; overflow-y: auto; border-radius: 12px;">
+            <!-- Dropdown Header -->
+            <li class="border-bottom pb-2 mb-2">
+              <h6 class="text-center mb-0">الإشعارات</h6>
+            </li>
 
-             <!-- Collapsible Section - Packages -->
-             <a class="nav-link mb-3" data-bs-toggle="collapse" href="#PackagesSection" role="button" aria-expanded="false" aria-controls="PackagesSection">
-                <i class="bi bi-television"></i> الباقات
-            </a>
-            <div class="collapse" id="PackagesSection">
-                <a class="nav-link ms-4 mb-2" routerLink="/ShowAllPackages" routerLinkActive="active">عرض الباقات</a>
-                <a class="nav-link ms-4 mb-2"routerLink="/ShowPackageItems" routerLinkActive="active">التعديل على الباقه</a>
-            </div>
+            <!-- Notification Items -->
+            <li class="mb-2">
+              <a href="#" class="dropdown-item d-flex align-items-start">
+                <img src="1.png" alt="Notification" class="rounded-circle"
+                  style="width: 40px; height: 40px; object-fit: cover;">
+                <div>
+                  <strong class="d-block me-2">عنوان الإشعار الأول</strong>
+                  <small class="text-muted">قبل 5 دقائق</small>
+                </div>
+              </a>
+            </li>
+
+            <li class="mb-2">
+              <a href="#" class="dropdown-item d-flex align-items-start">
+                <img src="1.png" alt="Notification" class="rounded-circle me-3"
+                  style="width: 40px; height: 40px; object-fit: cover;">
+                <div>
+                  <strong class="d-block">عنوان الإشعار الثاني</strong>
+                  <small class="text-muted">قبل ساعة</small>
+                </div>
+              </a>
+            </li>
+
+            <li class="mb-2">
+              <a href="#" class="dropdown-item d-flex align-items-start">
+                <img src="1.png" alt="Notification" class="rounded-circle me-3"
+                  style="width: 40px; height: 40px; object-fit: cover;">
+                <div>
+                  <strong class="d-block">عنوان الإشعار الثالث</strong>
+                  <small class="text-muted">منذ يوم واحد</small>
+                </div>
+              </a>
+            </li>
+
+            <!-- View All Notifications -->
+            <li class="pt-2 mt-2 border-top text-center">
+              <a href="#" class="text-primary text-decoration-none">عرض كل الإشعارات</a>
+            </li>
+          </ul>
+        </div>
 
 
-            <!-- Collapsible Section - Subscriptions -->
-            <a class="nav-link mb-3" data-bs-toggle="collapse" href="#detailsSection" role="button" aria-expanded="false" aria-controls="detailsSection">
-                <i class="bi bi-television"></i> تفاصيل العقار
-            </a>
-            <div class="collapse" id="detailsSection">
-                <a class="nav-link ms-4 mb-2" routerLink="/ControlOnLocation" routerLinkActive="active">موقع العقارات</a>
-                <a class="nav-link ms-4 mb-2" routerLink="/ClassifyAndAdditionProperty" routerLinkActive="active">تصنيف العقارات </a>
+        <!-- User Account Dropdown -->
+        <div class="dropdown">
+          <button class="btn btn-light rounded-circle shadow-sm dropdown-toggle p-0" aria-label="User Account"
+            data-bs-toggle="dropdown" aria-expanded="false" style="width: 40px; height: 40px; overflow: hidden;">
 
-            </div>
+            <!-- إضافة الصورة الشخصية -->
+            <img src="1.png" alt="User Profile"
+              style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
+          </button>
+          <!-- القائمة العصرية -->
+          <ul class="dropdown-menu dropdown-menu-end text-end mt-3 shadow-lg"
+            style="min-width: 10px; border-radius: 12px;">
 
-            <hr class="text-white">
-
-            <!-- Library -->
-            <a class="nav-link mb-3" href="#">
-                <i class="bi bi-book"></i> المكتبة
-            </a>
-
-            <!-- Log -->
-            <a class="nav-link mb-3" href="#">
-                <i class="bi bi-hourglass-split"></i> السجل
-            </a>
-        </nav>
-    </div>
-    <!-- المحتوى الرئيسي -->
-    <main class="content bg-blue">
-        <div class="container m-5 pt-1">
-            <router-outlet></router-outlet>
+            <!-- القسم العلوي للصورة والبيانات -->
+            <li class="p-3 bg-light d-flex align-items-center rounded-top" style="border-bottom: 1px solid #ddd;">
+              <div class="ms-3 text-start">
+                <p class="fw-bold mb-0" style="font-size: 14px;">محمد زيدان</p>
+                <p class="text-muted mb-0" style="font-size: 12px;">mohamedzidan6846gmail.com</p>
+              </div>
+            </li>
             
+
+            <!-- عناصر القائمة -->
+            <li><a class="dropdown-item py-2" routerLink="/UserProfile" routerLinkActive="active"><i class="bi bi-person me-2"></i> الملف الشخصي</a></li>
+            <li><a class="dropdown-item py-2" href="#"><i class="bi bi-gear me-2"></i> الإعدادات</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item text-danger py-2" (click)="logOut()" href="#">
+                <i class="bi bi-box-arrow-right me-2"></i> تسجيل الخروج</a></li>
+          </ul>
         </div>
-        <br>
-    </main>
+
+
+
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- الشريط الجانبي -->
+  <div id="sidebar" class="sidebar text-white border-start shadow-lg" style="height: 100vh; background-color: #979b9a;">
+    <br>
+    <nav class="nav flex-column mt-5 p-3">
+      <!-- Dashboard -->
+      <a class="nav-link active mb-3 head" routerLink="/TryToReacive" routerLinkActive="active">
+        <i class="bi bi-house-door-fill"></i> لوحة القيادة
+      </a>
+
+      <!-- Collapsible Section - Ads Of Properties -->
+      <a class="nav-link mb-2" data-bs-toggle="collapse" href="#popularSection" role="button" aria-expanded="false"
+        aria-controls="popularSection">
+        <i class="bi bi-fire"></i> عقارات
+      </a>
+      <div class="collapse" id="popularSection">
+        <a class="nav-link sub-item" routerLink="/ShowAllAdvs" routerLinkActive="active">
+          <i class="bi bi-megaphone text-warning  me-3"></i> الإعلانات
+        </a>
+        <a class="nav-link sub-item" routerLink="/RequestsOfAds" routerLinkActive="active">
+          <i class="bi bi-envelope text-success  me-3"></i> طلبات الإعلان
+        </a>
+        <!-- <a class="nav-link sub-item" routerLink="/EditOnAd" routerLinkActive="active">
+          <i class="bi bi-pencil-square text-info"></i> عرض الإعلان
+        </a> -->
+      </div>
+
+      <!-- Collapsible Section - Packages -->
+      <a class="nav-link mb-2" data-bs-toggle="collapse" href="#PackagesSection" role="button" aria-expanded="false"
+        aria-controls="PackagesSection">
+        <i class="bi bi-currency-dollar"></i> الباقات
+      </a>
+      <div class="collapse" id="PackagesSection">
+        <a class="nav-link sub-item" routerLink="/ShowAllPackages" routerLinkActive="active">
+          <i class="bi bi-view-list text-primary me-3"></i> عرض الباقات
+        </a>
+        <!-- <a class="nav-link sub-item" routerLink="/ShowPackageItems" routerLinkActive="active">
+          <i class="bi bi-tools text-danger"></i> التعديل على الباقة
+        </a> -->
+      </div>
+
+      <!-- Collapsible Section - Subscriptions -->
+      <a class="nav-link mb-2" data-bs-toggle="collapse" href="#detailsSection" role="button" aria-expanded="false"
+        aria-controls="detailsSection">
+        <i class="bi bi-geo-alt"></i> تفاصيل العقار
+      </a>
+      <div class="collapse" id="detailsSection">
+        <!-- <a class="nav-link sub-item" routerLink="/ControlOnLocation" routerLinkActive="active">
+          <i class="bi bi-map text-secondary"></i> موقع العقارات
+        </a> -->
+        <a class="nav-link sub-item" routerLink="/ClassifyAndAdditionProperty" routerLinkActive="active">
+          <i class="bi bi-layers text-warning  me-3"></i> تصنيف العقارات
+        </a>
+      </div>
+
+      <hr class="text-white">
+
+      <!-- Library -->
+      <!-- <a class="nav-link mb-3" href="#">
+        <i class="bi bi-book"></i> المكتبة
+      </a> -->
+
+      <!-- Log -->
+      <a class="nav-link mb-3" href="#">
+        <i class="bi bi-gear me-2"></i> الإعدادات
+      </a>
+    </nav>
+  </div>
+
+  <!-- المحتوى الرئيسي -->
+  <main class="content bg-blue">
+    <div class="container m-5 pt-1">
+      <router-outlet></router-outlet>
+
+    </div>
+    <br>
+  </main>
 
 
 </body>

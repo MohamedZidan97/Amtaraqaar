@@ -1,0 +1,192 @@
+<!-- Glassmorphism Effect Container -->
+<div class="container mt-5 d-flex justify-content-center align-items-center">
+  <div class="card shadow-lg border-0 rounded-4 glass-effect" style="width: 90%; max-width: 900px;">
+    <!-- Card Header -->
+    <div class="card-header bg-transparent text-dark text-center py-4"
+      style="backdrop-filter: blur(10px); background: rgba(0, 0, 0, 0.3);">
+      <h2 class="fw-bold mb-0"> الملف الشخصي</h2>
+      <p class="text-dark-50">قم بإدارة حسابك بكل سهولة ومرونة</p>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-pills justify-content-center mb-4 mt-3 border-bottom" id="pills-tab" role="tablist">
+
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active fw-semibold" id="profile-tab" data-bs-toggle="pill" data-bs-target="#profile"
+          type="button" role="tab" aria-controls="profile" aria-selected="true">
+          <i class="fas fa-user-circle me-2"></i> معلومات المستخدم
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-semibold" id="documentation-tab" data-bs-toggle="pill"
+          data-bs-target="#documentation" type="button" role="tab" aria-controls="documentation" aria-selected="true">
+          <i class="fas fa-file-alt me-2"></i> توثيق المستخدم
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-semibold" id="personalPhoto-tab" data-bs-toggle="pill"
+          data-bs-target="#personalPhoto" type="button" role="tab" aria-controls="personalPhoto" aria-selected="false">
+          <i class="fas fa-camera me-2"></i> تغيير الصورة الشخصية
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-semibold" id="password-tab" data-bs-toggle="pill" data-bs-target="#password"
+          type="button" role="tab" aria-controls="password" aria-selected="false">
+          <i class="fas fa-lock me-2"></i> تغيير كلمة المرور
+        </button>
+      </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content p-4" id="pills-tabContent">
+      <!-- User Information -->
+      <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <form (submit)="updateProfile()" class="row g-3">
+          <div class="col-md-6">
+            <label for="firstName" class="form-label fw-semibold">الاسم الأول *</label>
+            <input type="text" class="form-control modern-input" id="firstName" [(ngModel)]="firstName" name="firstName"
+              placeholder="محمد">
+          </div>
+          <div class="col-md-6">
+            <label for="lastName" class="form-label fw-semibold">اسم العائلة *</label>
+            <input type="text" class="form-control modern-input" id="lastName" [(ngModel)]="lastName" name="lastName"
+              placeholder="القحطاني">
+          </div>
+          <div class="col-6">
+            <label for="userName" class="form-label fw-semibold"> اسم المستخدم *</label>
+            <input type="text" class="form-control modern-input" id="userName" [(ngModel)]="userName" name="userName"
+              placeholder="@example">
+          </div>
+          <!-- <div class="col-12">
+              <label for="email" class="form-label fw-semibold">البريد الإلكتروني *</label>
+              <input type="email" class="form-control modern-input" id="email" [(ngModel)]="email" name="email" placeholder="email@example.com">
+            </div> -->
+          <div class="col-12 text-center">
+            <button type="submit" class="btn modern-btn btn-lg mt-3">
+              <i class="fas fa-save me-2"></i> تحديث المعلومات
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- User Documentation -->
+      <div class="tab-pane fade" id="documentation" role="tabpanel" aria-labelledby="documentation-tab">
+        <form (submit)="updateProfile()" class="row g-4">
+          <!-- رقم الهوية -->
+          <div class="col-md-6">
+            <label for="IdNumber" class="form-label fw-semibold">رقم الهوية *</label>
+            <input type="text" class="form-control modern-input" id="IdNumber" [(ngModel)]="IdNumber" name="IdNumber"
+              placeholder="12345678901234">
+          </div>
+
+          <!-- رخصة فال -->
+          <div class="col-12">
+            <h5 class="fw-bold mb-3">رخصة فال</h5>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="numberValCart" class="form-label fw-semibold">رقم رخصة فال *</label>
+                <input type="text" class="form-control modern-input" id="numberValCart" [(ngModel)]="numberValCart"
+                  name="numberValCart" placeholder="123456">
+              </div>
+              <div class="col-md-6">
+                <label for="ValCart" class="form-label fw-semibold">ارفع صورة رخصة فال *</label>
+                <input type="file" class="form-control modern-input" id="ValCart" name="ValCart">
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <!-- السجل التجاري -->
+          <div class="col-12">
+            <h5 class="fw-bold mb-3">السجل التجاري</h5>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="commercialNumber" class="form-label fw-semibold">رقم السجل التجاري *</label>
+                <input type="text" class="form-control modern-input" id="commercialNumber"
+                  [(ngModel)]="commercialNumber" name="commercialNumber" placeholder="654321">
+              </div>
+              <div class="col-md-6">
+                <label for="commercialFile" class="form-label fw-semibold">ارفع صورة السجل التجاري *</label>
+                <input type="file" class="form-control modern-input" id="commercialFile" name="commercialFile">
+              </div>
+            </div>
+          </div>
+
+          <!-- زر التحديث -->
+          <div class="col-12 text-center mt-4">
+            <button type="submit" class="btn modern-btn btn-lg">
+              <i class="fas fa-save me-2"></i> تحديث المعلومات
+            </button>
+          </div>
+        </form>
+      </div>
+
+
+      <!-- Change Profile Picture -->
+      <div class="tab-pane fade text-center" id="personalPhoto" role="tabpanel" aria-labelledby="personalPhoto-tab">
+        <div class="d-flex flex-column align-items-center">
+          <img [src]="profileImageUrl" alt="الصورة الشخصية" class="rounded-circle shadow-lg mb-4 modern-img" width="180"
+            height="180">
+          <label for="photoInput" class="btn modern-btn-outline btn-lg">
+            <i class="fas fa-upload me-2"></i> اختر صورة جديدة
+            <input type="file" id="photoInput" class="d-none" (change)="onFileSelected($event)">
+          </label>
+          <p class="text-muted mt-3">يرجى اختيار صورة ذات جودة عالية</p>
+        </div>
+      </div>
+
+      <!-- Change Password -->
+      <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+        <form (submit)="changePassword()" class="row g-3">
+          <!-- Current Password -->
+          <div class="col-12 position-relative">
+            <label for="currentPassword" class="form-label fw-semibold">كلمة المرور الحالية *</label>
+            <div class="input-group">
+              <input [type]="showCurrentPassword ? 'text' : 'password'" class="form-control modern-input"
+                id="currentPassword" [(ngModel)]="currentPassword" name="currentPassword" placeholder="••••••••">
+              <span class="input-group-text bg-transparent border-0" style="cursor: pointer;"
+                (click)="togglePasswordVisibility('current')">
+                <i class="fas" [ngClass]="showCurrentPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- New Password -->
+          <div class="col-md-6 position-relative">
+            <label for="newPassword" class="form-label fw-semibold">كلمة المرور الجديدة *</label>
+            <div class="input-group">
+              <input [type]="showNewPassword ? 'text' : 'password'" class="form-control modern-input" id="newPassword"
+                [(ngModel)]="newPassword" name="newPassword" placeholder="••••••••">
+              <span class="input-group-text bg-transparent border-0" style="cursor: pointer;"
+                (click)="togglePasswordVisibility('new')">
+                <i class="fas" [ngClass]="showNewPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="col-md-6 position-relative">
+            <label for="confirmPassword" class="form-label fw-semibold">تأكيد كلمة المرور *</label>
+            <div class="input-group">
+              <input [type]="showConfirmPassword ? 'text' : 'password'" class="form-control modern-input"
+                id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="••••••••">
+              <span class="input-group-text bg-transparent border-0" style="cursor: pointer;"
+                (click)="togglePasswordVisibility('confirm')">
+                <i class="fas" [ngClass]="showConfirmPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="col-12 text-center">
+            <button type="submit" class="btn modern-btn btn-lg mt-3">
+              <i class="fas fa-key me-2"></i> تحديث كلمة المرور
+            </button>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>

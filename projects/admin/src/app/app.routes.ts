@@ -13,6 +13,8 @@ import { ControlOnLocationsComponent } from './components/main-layout/DetailsOfP
 import { PackageItemsComponent } from './components/main-layout/Paymentpackages/package-items/package-items.component';
 import { ClassifyAnAdditionPropertyComponent } from './components/main-layout/DetailsOfProperities/classify-an-addition-property/classify-an-addition-property.component';
 import { ShowAllAdvsComponent } from './components/main-layout/RealStates/RealState/show-all-advs/show-all-advs.component';
+import { UserProfileSettingComponent } from './components/UserProfile/user-profile-setting/user-profile-setting.component';
+import { TryToReaciveToTheBestComponent } from './components/main-layout/RealStates/Project/try-to-reacive-to-the-best/try-to-reacive-to-the-best.component';
 
 export const routes: Routes = [
 
@@ -28,9 +30,12 @@ export const routes: Routes = [
         {path:'EditOnPackage/:packageId',component:EditOnPackageComponent,canActivate:[AuthGuard]},
         {path:'ShowPackageItems',component:PackageItemsComponent,canActivate:[AuthGuard]},
         {path:'ClassifyAndAdditionProperty',component:ClassifyAnAdditionPropertyComponent,canActivate:[AuthGuard]},
-        {path:'ShowAllAdvs',component:ShowAllAdvsComponent,canActivate:[AuthGuard]}
+        {path:'ShowAllAdvs',component:ShowAllAdvsComponent,canActivate:[AuthGuard]},
+        {path:'UserProfile',component:UserProfileSettingComponent,canActivate:[AuthGuard]},
+        {path:'TryToReacive',component:TryToReaciveToTheBestComponent,canActivate:[AuthGuard]}
 
 
+        
 
       //  {path:'OrderMaster',component:OrderMasterComponent,canActivate:[AuthGuard]},
       //  {path:'Product/:proId',component:DetialsOfProductComponent},

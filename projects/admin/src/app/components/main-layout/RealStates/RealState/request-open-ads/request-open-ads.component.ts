@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RequestAdsService } from '../Services/request-ads.service';
+import { ShowAllAdvsComponent } from "../show-all-advs/show-all-advs.component";
 
 @Component({
   selector: 'app-request-open-ads',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ShowAllAdvsComponent],
   templateUrl: './request-open-ads.component.html',
   styleUrl: './request-open-ads.component.scss'
 })
