@@ -1,10 +1,11 @@
-import { NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-show-the-ad',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass,CommonModule,FormsModule],
   templateUrl: './show-the-ad.component.html',
   styleUrl: './show-the-ad.component.scss'
 })

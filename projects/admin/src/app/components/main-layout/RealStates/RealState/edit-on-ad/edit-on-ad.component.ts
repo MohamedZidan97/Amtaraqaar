@@ -18,7 +18,7 @@ import { environment } from '../../../../../Environments/environment.prod';
 export class EditOnAdComponent implements OnInit {
   baseUrl: string = environment.baseUrl;
   imageList: string[] = [];
-  imageListForm: { url: string, alt: string }[] = [];
+  imageListForm: { id:number, url: string, alt: string }[] = [];
   categoryList: ICategory[] = [];
   subCategoryList: ICategory[] = [];
   featureList: ICategory[] = [];
@@ -28,6 +28,8 @@ export class EditOnAdComponent implements OnInit {
   subCategoryArray: number[] = []
   subCategoryNameArray: ICategory[] = []
   subCategoryNameArrayMap: string[] = []
+  deleteImagesIds:number[]=[];
+
 
   constructor(private fb: FormBuilder, private activitedRoute: ActivatedRoute,
     private router: Router, private propertySer: PropertyService,
@@ -43,7 +45,7 @@ export class EditOnAdComponent implements OnInit {
       room: [''],
       bathroom: [''],
       floor: [''],
-      area: [''],
+      spaces: [''],
       price: [''],
       section: [''],
       status: [''],
@@ -81,15 +83,17 @@ export class EditOnAdComponent implements OnInit {
             status: data.section,
             price: data.price,
             section: data.section,
+        
             categoryIds: [5],
             room: data.room,
             bathroom: data.bathroom, floor: data.floor,
-            area: 2,
+            spaces: data.spaces,
             advertiser_type: data.advertiser_type,
-            location: data.location, active: data.active,
+            location: data.address, active: data.active,
             media_files: data.media_files.map((item: any) => ({
+              id: item.id,
               url: item.url,
-              alt: item.alt,
+              alt: item.alt
             })),
             subCategoryIds: [9, 10], featureIds: [1],
             cityId: data.cityId, cityName: data.cityName,
@@ -157,14 +161,10 @@ export class EditOnAdComponent implements OnInit {
 
   getDataInForm(data: IGetPropertyById) {
     this.editOnAd.patchValue({
-      title: data.title,
-      description: data.description,
-      status: data.status,
-      price: data.price,
-      section: data.section,
-      categoryIds: data.categoryIds,
-      room: data.room,
-      bathroom: data.bathroom, floor: data.floor, area: data.area,
+      title: data.title,description: data.description,
+      status: data.status,price: data.price,section: data.section,
+      categoryIds: data.categoryIds,room: data.room,
+      bathroom: data.bathroom, floor: data.floor, spaces: data.spaces,
       advertiser_type: data.advertiser_type,
       location: data.location, active: data.active,
     });
@@ -195,35 +195,34 @@ export class EditOnAdComponent implements OnInit {
       // image
 
       // إعداد بيانات الـ IAddPackage
-      const formData = this.fileList; // استخدام fileList التي تم بناؤها
-      formData.append("title", String(data.title)); // إضافة أي بيانات إضافية إذا لزم الأمر
-      formData.append("description", String(data.description));
-      formData.append("price", (data.price));
-      formData.append("address", String(data.title));
-      formData.append("section",String( data.section));
-      formData.append("spaces", String(data.title));
-      formData.append("room", String(data.room));
-      formData.append("bathroom", String(data.bathroom));
-      formData.append("floor", String(data.floor));
+      // const formData = this.fileList; // استخدام fileList التي تم بناؤها
+      // formData.append("title", String(data.title)); // إضافة أي بيانات إضافية إذا لزم الأمر
+      // formData.append("description", String(data.description));
+      // formData.append("price", (data.price));
+      // formData.append("address", String(data.title));
+      // formData.append("section",String( data.section));
+      // formData.append("spaces", String(data.title));
+      // formData.append("room", String(data.room));
+      // formData.append("bathroom", String(data.bathroom));
+      // formData.append("floor", String(data.floor));
 
 
 
-      // const packageData: any = {
-      //   title: data.title,
-      //   description: data.description,
-      //   price: data.price,
-      //   address: "fsfs",
-      //    img:this.fileList,
-      //   section: data.section,
-      //   spaces: "fsd",
-      //   room: data.room as String,
-      //   bathroom: data.bathroom as String,
-      //   floor: data.floor as String,
-      // };
-      console.log(formData.get('spaces'));
+      const packageData: any = {
+        title: data.title,
+        description: data.description,
+        price: data.price,
+        address: data.location,
+        section: data.section,
+        spaces: data.spaces as Number,
+        room: data.room as String,
+        bathroom: data.bathroom as String,
+        floor: data.floor as String,
+      };
+      console.log(packageData);
 
       // إرسال البيانات إلى الـ API
-      this.propertySer.updateProperty(this.propertyId, formData).subscribe(
+      this.propertySer.updateProperty(this.propertyId, packageData).subscribe(
         {
           next: (response) => {
             this.editOnAd.reset();
@@ -240,13 +239,71 @@ export class EditOnAdComponent implements OnInit {
       console.error('Form is invalid!');
     }
 
-
+   // this.addImagesOfPropertyObserve(this.uploadImages);
   }
 
+  addImagesOfPropertyObserve(){
+    const existingImageIds: number[] = [18]; // You might want to get this from an input
+    const formData = new FormData();
+
+    // Append files to FormData
+  if (this.uploadImages.length > 0) {
+    const file = this.uploadImages;
+    formData.append('images',JSON.stringify( file));
+ 
+    }
+
+    // Append existing image IDs
+    formData.append('existing_image_ids', JSON.stringify(existingImageIds));
+
+  console.log('FormData content:', formData.get('images'));
+    
+    this.propertySer.addImagesOfProperty(formData,this.propertyId).subscribe({
+      next: (response) => {
+
+       console.log("Done Upload Images",this.uploadImages);
+      },
+      error: (error) => {
+        console.error('Error adding package:', error);
+      }
+    })
+  }
 
   //                         Property Features  
 
-  // submitting
+ 
+ //uploadImages:FormData = new FormData();
+  uploadImages: File[]=[];
+  // Method to handle file selection
+  onFileSelected(event: any): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      Array.from(input.files).forEach((file) => {
+        this.uploadImages.push(file);
+
+    //   this.uploadImages.push({file:file,fileName:file.name});
+       console.log("inside", this.uploadImages);
+        const reader = new FileReader();
+
+        reader.onload = (e: ProgressEvent<FileReader>) => {
+          if (e.target?.result) {
+            this.imageList.push(e.target.result as string); // Add image URL to the list
+          }
+       
+        };
+
+      this.addImagesOfPropertyObserve();
+
+        reader.readAsDataURL(file); // Read file as data URL
+      });
+    }
+  }
+
+
+
+
+  //
+ // submitting
   onSubmit() {
 
     this.updatePropertyObserve();
@@ -256,37 +313,13 @@ export class EditOnAdComponent implements OnInit {
   triggerFileUpload(fileInput: HTMLInputElement): void {
     fileInput.click();
   }
- fileList = new FormData();
-  // Method to handle file selection
-  onFileSelected(event: any): void {
-    const input = event.target as HTMLInputElement;
 
-    if (input.files) {
-      const fileTarget = event.target.files; // الحصول على الملفات
-      if (fileTarget.length > 0) {
-        for (let i = 0; i < fileTarget.length; i++) {
-          this.fileList.append("img", fileTarget[i]); // إضافة الملفات إلى FormData
-        }
-      }
-      console.log("done....", this.fileList.get('img'));
-      Array.from(input.files).forEach((file) => {
-        //this.fileListt.push(file);
-        // console.log(this.fileList.get('file'));
-        const reader = new FileReader();
-
-        reader.onload = (e: ProgressEvent<FileReader>) => {
-          if (e.target?.result) {
-            this.imageList.push(e.target.result as string); // Add image URL to the list
-          }
-        };
-
-        reader.readAsDataURL(file); // Read file as data URL
-      });
-    }
-  }
   // دالة لحذف الصورة
-  removeImage(index: number): void {
+  removeImage(index: number,id:number): void {
     this.imageList.splice(index, 1);
+    if(id>0)
+    this.deleteImagesIds.push(id);
+
   }
 
 

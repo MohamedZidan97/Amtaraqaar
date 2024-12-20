@@ -21,12 +21,6 @@ export class TryToReaciveToTheBestComponent {
   imageList: string[] = [];
   imageListForm: { url: string, alt: string }[] = [];
 
-  proFtsList: { name: string, flag: boolean }[] = [
-    { name: 'واى فاى', flag: false },
-    { name: 'صاله', flag: true },
-    { name: 'واى ', flag: false }]
-
-
   categoryList: ICategory[] = [];
   subCategoryList: ICategory[] = [];
   featureList: ICategory[] = [];
@@ -35,7 +29,7 @@ export class TryToReaciveToTheBestComponent {
   dropdownOpen = false;
 
   editOnAd: FormGroup;
-  propertyId: number = 0;
+  propertyId: number = 3;
   subCategoryArray: number[] = []
   subCategoryNameArray: ICategory[] = []
   subCategoryNameArrayMap: string[] = []
@@ -54,7 +48,7 @@ export class TryToReaciveToTheBestComponent {
       room: [''],
       bathroom: [''],
       floor: [''],
-      area: [''],
+      spaces: [''],
       price: [''],
       section: [''],
       status: [''],
@@ -67,7 +61,7 @@ export class TryToReaciveToTheBestComponent {
 
   ngOnInit(): void {
     this.imageList;
-    this.propertyId = Number(this.activitedRoute.snapshot.paramMap.get('propertyId'));
+   // this.propertyId = Number(this.activitedRoute.snapshot.paramMap.get('propertyId'));
     this.getPropertyByIdObserve();
   }
   //
@@ -95,9 +89,9 @@ export class TryToReaciveToTheBestComponent {
             categoryIds: [5],
             room: data.room,
             bathroom: data.bathroom, floor: data.floor,
-            area: 2,
+            spaces:data.spaces,
             advertiser_type: data.advertiser_type,
-            location: data.location, active: data.active,
+            location: data.address, active: data.active,
             media_files: data.media_files.map((item: any) => ({
               url: item.url,
               alt: item.alt,
@@ -175,7 +169,7 @@ export class TryToReaciveToTheBestComponent {
       section: data.section,
       categoryIds: data.categoryIds,
       room: data.room,
-      bathroom: data.bathroom, floor: data.floor, area: data.area,
+      bathroom: data.bathroom, floor: data.floor, spaces: data.spaces,
       advertiser_type: data.advertiser_type,
       location: data.location, active: data.active,
     });
@@ -187,45 +181,26 @@ export class TryToReaciveToTheBestComponent {
     if (this.editOnAd.valid) {
 
       const data = this.editOnAd.value;
-      // category
-      const selectIdCat = this.categoryList
-        .map((item, index) => (data.categoryIds[index] ? item.id : null))
-        .filter((id) => id !== null) as number[];
-        console.log(selectIdCat)
-
-      // sub category
-      const selectIdSubCat = this.subCategoryArray;
-      console.log(selectIdSubCat)
-      // feature
-      const selectIdFeat = this.featureList
-        .map((item, index) => (data.featureIds[index] ? item.id : null))
-        .filter((id) => id !== null) as number[];
-        console.log(selectIdFeat);
-
-
-      // image
-
-      // إعداد بيانات الـ IAddPackage
-      const packageData: any = {
-        title: data.title,
-       // description: data.description,
-      //  status: data.status,
-
-        price: data.price,
-        address:"fsfs",
-         img:this.fileList,
-       // images:this.fileListt,
-        section: data.section,
-        spaces:"fsd",
-        room: data.room,
-        bathroom: data.bathroom,
-        floor: data.floor,
-        // area: data.area,
-      };
-      console.log(packageData);
-
+      const formData = new FormData(); // Create a new instance of FormData
+      
+      formData.append("title", data.title);
+      formData.append("description",data.description);
+      formData.append("price", data.price);
+      formData.append("address", data.address);
+      formData.append("section", data.section);
+      formData.append("spaces",data.spaces);
+      formData.append("room", data.room);
+      formData.append("bathroom", data.bathroom);
+      formData.append("floor", data.floor);
+      
+      
+      // Append file(s)
+      // this.fileList.forEach((value, key) => {
+      //   formData.append(key, value);
+      //   console.log(value," key: ",key);
+      // });
       // إرسال البيانات إلى الـ API
-      this.propertySer.updateProperty(this.propertyId, packageData).subscribe(
+      this.propertySer.updateProperty(this.propertyId, formData).subscribe(
         {
           next: (response) => {
             this.editOnAd.reset();
@@ -245,43 +220,26 @@ export class TryToReaciveToTheBestComponent {
 
   }
 
-
-  //                         Property Features  
-
-  // submitting
+  fileList:FormData = new FormData(); 
+  onFileSelected(event: any): void {
+    const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    const file = input.files[0];
+    this.fileList.append('img', file); // Append the file to FormData
+    console.log("Selected file:", file);
+  } else {
+    console.error("No file selected");
+  }
+  }
   onSubmit() {
     
-   this.updatePropertyObserve();
-  }
-
+    this.updatePropertyObserve();
+   }
+ 
+   
   // Method to trigger file upload
   triggerFileUpload(fileInput: HTMLInputElement): void {
     fileInput.click();
-  }
-  fileList = new FormData(); 
-  // Method to handle file selection
-  onFileSelected(event: any): void {
-    const input = event.target as HTMLInputElement;
-
-    if (input.files) {
-      const fileTarget = event.currentTarget.files[0];
-      this.fileList.append('img',fileTarget);
-
-      console.log("done....",fileTarget);
-      Array.from(input.files).forEach((file) => {
-        //this.fileListt.push(file);
-       // console.log(this.fileList.get('file'));
-        const reader = new FileReader();
-
-        reader.onload = (e: ProgressEvent<FileReader>) => {
-          if (e.target?.result) {
-            this.imageList.push(e.target.result as string); // Add image URL to the list
-          }
-        };
-
-        reader.readAsDataURL(file); // Read file as data URL
-      });
-    }
   }
   // دالة لحذف الصورة
   removeImage(index: number): void {

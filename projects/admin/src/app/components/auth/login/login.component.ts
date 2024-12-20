@@ -55,6 +55,11 @@ export class LoginComponent implements OnInit  {
         this.authService.storeEmail(res.user.email);
         this.authService.storePhone(res.user.phone);
         this.authService.storeName(`${res.user.first_name} ${res.user.last_name}`)
+        this.authService.setFirstName(res.user.first_name);
+        this.authService.setLastName(res.user.last_name);
+        this.authService.setUserName(res.user.username);
+
+
         this.userStore.setFullNameForStore(this.authService.getName()||"");
         this.userStore.setEmailForStore(this.authService.getEmail()||"");
 

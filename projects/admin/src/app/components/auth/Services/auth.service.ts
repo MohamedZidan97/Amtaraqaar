@@ -73,6 +73,31 @@ export class AuthService {
     return localStorage.getItem('Name');
   }
 
+  //first name
+  setFirstName(nameValue: string) {
+    localStorage.setItem('FirstName',nameValue )
+  }
+  getFirstName(): string | null {
+    return localStorage.getItem('FirstName');
+  }
+
+  //last name
+  setLastName(nameValue: string) {
+    localStorage.setItem('LastName',nameValue )
+  }
+  getLastName(): string | null {
+    return localStorage.getItem('LastName');
+  }
+
+  
+  //user name
+  setUserName(nameValue: string) {
+    localStorage.setItem('UserName',nameValue )
+  }
+  getUserName(): string | null {
+    return localStorage.getItem('UserName');
+  }
+
   
 
 

@@ -24,7 +24,7 @@
                  <img [src]="baseUrl + image.url" [alt]="image.alt" class="card-img-top rounded" />
 
                  <button class="btn-close btn-close-white position-absolute top-0 end-0 m-2" 
-                 (click)="removeImage(i)"
+                 (click)="removeImage(i,image.id)"
                    aria-label="Close"></button>
             
               </div>
@@ -35,7 +35,7 @@
 
                 <!-- زر الحذف -->
                 <button class="btn-close btn-close-white position-absolute top-0 end-0 m-2" 
-                (click)="removeImage(i)"
+                (click)="removeImage(i,0)"
                   aria-label="Close"></button>
            
              </div>
@@ -114,7 +114,7 @@
               </div>
               <div class="col-sm-3">
                 <label class="form-label" for="specificSizeIputName4">المساحة</label>
-                <input formControlName="area" type="number" class="form-control" id="specificSizeIputName4"
+                <input formControlName="spaces" type="number" class="form-control" id="specificSizeIputName4"
                   placeholder="المساحة">
               </div>
             </div>

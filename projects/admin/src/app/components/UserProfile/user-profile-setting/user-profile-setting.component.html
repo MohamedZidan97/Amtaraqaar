@@ -41,26 +41,22 @@
     <div class="tab-content p-4" id="pills-tabContent">
       <!-- User Information -->
       <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <form (submit)="updateProfile()" class="row g-3">
+        <form class="row g-3" [formGroup]="userInformation" (ngSubmit)="onSubmituserInformation()">
           <div class="col-md-6">
             <label for="firstName" class="form-label fw-semibold">الاسم الأول *</label>
-            <input type="text" class="form-control modern-input" id="firstName" [(ngModel)]="firstName" name="firstName"
+            <input type="text" class="form-control modern-input" id="firstName" formControlName="firstName" name="firstName"
               placeholder="محمد">
           </div>
           <div class="col-md-6">
             <label for="lastName" class="form-label fw-semibold">اسم العائلة *</label>
-            <input type="text" class="form-control modern-input" id="lastName" [(ngModel)]="lastName" name="lastName"
+            <input type="text" class="form-control modern-input" id="lastName" formControlName="lastName" name="lastName"
               placeholder="القحطاني">
           </div>
           <div class="col-6">
             <label for="userName" class="form-label fw-semibold"> اسم المستخدم *</label>
-            <input type="text" class="form-control modern-input" id="userName" [(ngModel)]="userName" name="userName"
+            <input type="text" class="form-control modern-input" id="userName" formControlName="userName" name="userName"
               placeholder="@example">
           </div>
-          <!-- <div class="col-12">
-              <label for="email" class="form-label fw-semibold">البريد الإلكتروني *</label>
-              <input type="email" class="form-control modern-input" id="email" [(ngModel)]="email" name="email" placeholder="email@example.com">
-            </div> -->
           <div class="col-12 text-center">
             <button type="submit" class="btn modern-btn btn-lg mt-3">
               <i class="fas fa-save me-2"></i> تحديث المعلومات
@@ -70,7 +66,7 @@
       </div>
       <!-- User Documentation -->
       <div class="tab-pane fade" id="documentation" role="tabpanel" aria-labelledby="documentation-tab">
-        <form (submit)="updateProfile()" class="row g-4">
+        <form  class="row g-4">
           <!-- رقم الهوية -->
           <div class="col-md-6">
             <label for="IdNumber" class="form-label fw-semibold">رقم الهوية *</label>

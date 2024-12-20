@@ -1,19 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UserProfileService } from '../Services/user-profile.service';
+import { AuthService } from '../../auth/Services/auth.service';
 
 @Component({
   selector: 'app-user-profile-setting',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,ReactiveFormsModule],
   templateUrl: './user-profile-setting.component.html',
   styleUrl: './user-profile-setting.component.scss'
 })
-export class UserProfileSettingComponent {
-  firstName: string = 'محمد';
-  lastName: string = 'القحطاني';
-  email: string = 'email@example.com';
-  userName:string = '@example';
+export class UserProfileSettingComponent implements OnInit {
+ 
   IdNumber:number = 23156699885544;
   numberValCart:number = 123456;
   commercialNumber:number = 12345678;
@@ -25,15 +24,89 @@ export class UserProfileSettingComponent {
   // مسار الصورة الافتراضية
   profileImageUrl: string = 'assets/default-profile.png'; 
 
-  updateProfile() {
-    // منطق تحديث البيانات
-    console.log('تم تحديث الملف الشخصي:', {
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email,
-    });
-    alert('تم تحديث الملف الشخصي بنجاح!');
+  userInformation:FormGroup;
+
+constructor(private fb: FormBuilder,private userService:UserProfileService,private authService:AuthService){
+  
+      this.userInformation = this.fb.group({
+        firstName: ['', [Validators.required]],
+        lastName: ['', [Validators.required]],
+        userName: ['', [Validators.required]],
+      });
+}
+
+  ngOnInit(): void {
+   this.getProfileDataObserve() 
+   }
+
+//                               Get User Data
+
+getProfileDataObserve(){
+  
+this.userService.getProfileData().subscribe({
+  next : (res) =>{
+         this.setUserInfoToFrom(res.user);
+            
+         
+  },
+  error :(err)=>{
+    console.log("There error");
   }
+})
+}
+
+
+//                                 User Information
+
+setUserInfoToFrom(data:any){
+  this.userInformation.patchValue({
+     firstName:data.first_name,
+     lastName:data.last_name,
+     userName:data.username
+
+  }
+  )
+}
+
+
+updateProfileDataObserve(){
+  const userInfoData = this.userInformation.value;
+
+const data = {
+  first_name:userInfoData.firstName,
+  last_name:userInfoData.lastName,
+  username:userInfoData.userName
+} 
+this.userService.updateProfileData(data).subscribe({
+  next : (res) =>{
+           alert("Successfully");
+           //this.userInformation.reset();
+           this.getProfileDataObserve() 
+
+
+  },
+  error :(err)=>{
+    console.log("There error");
+  }
+})
+}
+
+
+onSubmituserInformation(){
+ this.updateProfileDataObserve();
+}
+
+
+
+
+
+
+
+
+
+
+
+  
 
   // changePassword() {
   //   // منطق تغيير كلمة المرور

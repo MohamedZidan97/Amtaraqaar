@@ -2,8 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../../../../auth/Services/auth.service';
 import { environment } from '../../../../../Environments/environment.prod';
-import { map, Observable } from 'rxjs';
-import { IGetProperties } from '../Models/iget-properties';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +27,7 @@ export class PropertyService {
   //   return this.http.post<any>(`${environment.apiUrl}packages`,model,this.headerOption);
 
   // }
+
   deleteProperty(id:number){
     const url = `${environment.apiUrl}properties/${id}`;
 
@@ -45,5 +44,10 @@ export class PropertyService {
     console.log('update..',model);
     return this.http.post<any>(url,model,this.headerOption);
   }
+
+  addImagesOfProperty(model:any,id:number){
+    return this.http.post<any>(`${environment.apiUrl}properties/upload-images/${id}`,model,this.headerOption);
+   }
+
 
 }
