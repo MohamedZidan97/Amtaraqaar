@@ -8,6 +8,8 @@ import { Subscription } from 'rxjs';
 import { HomeService } from './Services/home.service';
 import { AuthService } from '../../auth/Services/auth.service';
 import { UserDbStoreService } from '../../auth/Services/user-db-store.service';
+import { Chart, registerables } from 'chart.js';
+
 
 @Component({
   selector: 'app-home',
@@ -17,38 +19,62 @@ import { UserDbStoreService } from '../../auth/Services/user-db-store.service';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
+  stats = [
+    { label: 'العملاء', value: 32, color: '#0d6efd' },
+    { label: 'العقارات منتهية الصلاحية', value: 4, color: '#dc3545' },
+    { label: 'الحالة معلقة', value: 0, color: '#17a2b8' },
+    { label: 'الحالة نشطة', value: 60, color: '#6f42c1' },
+  ];
 
-  public role!: string;
+  additionalStats = [
+    { label: 'Bounce Rate', value: '312%' },
+    { label: 'عدد مرات مشاهدة الصفحة', value: '1,921' },
+    { label: 'Visitors', value: 414 },
+  ];
 
-  public fullName: string = "";
-  
-  private adsSubscribe!: Subscription;
-  constructor(private authService: AuthService, private homeSer:HomeService,private userStore:UserDbStoreService) {
-
+  constructor() {
+    Chart.register(...registerables);
   }
 
-  ngOnInit(): void {
- this.userStore.getFullNameFromStore().subscribe(res => {
-      const fullNameFromToken = this.authService.getName()||"";
-      this.fullName = res || fullNameFromToken;
+  ngOnInit() {
+    this.createChart();
+  }
+
+  createChart() {
+    const ctx = document.getElementById('lineChart') as HTMLCanvasElement;
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Apr 2024', 'May 2024', 'Jun 2024', 'Oct 2024'],
+        datasets: [
+          {
+            label: 'Visitors',
+            data: [500, 1000, 1500, 2000],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 2,
+            tension: 0.4,
+          },
+          {
+            label: 'Sessions',
+            data: [300, 700, 1200, 1800],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 2,
+            tension: 0.4,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'top' },
+        },
+        scales: {
+          x: { grid: { display: false } },
+          y: { grid: { color: '#eaeaea' } },
+        },
+      },
     });
-    
-    this.userStore.getEmailFromStore()
-      .subscribe(val => {
-        const roleFromToken = this.authService.getEmail()||"";
-        this.role = val || roleFromToken;
-      });
-
-    //  this.getDep();
-   
   }
-
-
-//  getDep(){
-//   return this.homeSer.getAllProducts().subscribe(res=>res);
-//  }
-  logOut() {
-    this.authService.logOut();
-  }
-
 }

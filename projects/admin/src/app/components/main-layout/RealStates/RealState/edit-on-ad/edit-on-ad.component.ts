@@ -15,6 +15,8 @@ import { environment } from '../../../../../Environments/environment.prod';
   templateUrl: './edit-on-ad.component.html',
   styleUrl: './edit-on-ad.component.scss'
 })
+
+
 export class EditOnAdComponent implements OnInit {
   baseUrl: string = environment.baseUrl;
   imageList: string[] = [];
@@ -48,7 +50,6 @@ export class EditOnAdComponent implements OnInit {
       spaces: [''],
       price: [''],
       section: [''],
-      status: [''],
       featureIds: fb.array([]), //array of checkBox
       categoryIds: fb.array([]), // array of checkBok
       subCategoryIds: fb.array([]) // array of checkBok
@@ -242,46 +243,102 @@ export class EditOnAdComponent implements OnInit {
    // this.addImagesOfPropertyObserve(this.uploadImages);
   }
 
-  addImagesOfPropertyObserve(){
-    const existingImageIds: number[] = [18]; // You might want to get this from an input
-    const formData = new FormData();
+  createFormDataMultiFiles(
+    object: any,
+    form?: FormData,
+    namespace?: string
+  ): FormData {
+    const formData = form || new FormData();
+    for (const property in object) {
+      if (
+        !object.hasOwnProperty(property) ||
+        object[property] === undefined ||
+        object[property] === null
+      ) {
+        continue;
+      }
+      const formKey = namespace ? `${namespace}.${property}` : property;
 
-    // Append files to FormData
-  if (this.uploadImages.length > 0) {
-    const file = this.uploadImages;
-    formData.append('images',JSON.stringify( file));
- 
+      if (Array.isArray(object[property])) {
+        object[property].forEach(item => {
+          if (item instanceof File) {
+            formData.append(formKey, item);
+          } else if (typeof item === 'number' || typeof item === 'string') {
+            formData.append(formKey, item.toString());
+          }
+        });
+      } else if (object[property] instanceof Date) {
+        formData.append(formKey, object[property].toISOString());
+      } else if (typeof object[property] === 'object' && !(object[property] instanceof File)) {
+        this.createFormDataMultiFiles(object[property], formData, formKey);
+      } else {
+        formData.append(formKey, object[property]);
+      }
+    }
+    console.log('FormData content:');
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
+    return formData;
+  }
+   convertFilesToBase64(): Promise<string[]> {
+    const fileBase64Promises = this.uploadImages.map((file) => {
+      return new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (error) => reject(error);
+        reader.readAsDataURL(file); // Converts to Base64
+      });
+    });
+
+    return Promise.all(fileBase64Promises);
+  }
+  
+  addImagesOfPropertyObserve() {
+    const existingImageIds: number[] = [26]; // Example static IDs  
+    const filesBase64 = this.convertFilesToBase64();
+    console.log("base64 : ",filesBase64);
+    const data ={
+      images:filesBase64,
+      existing_image_ids:existingImageIds
+
     }
 
-    // Append existing image IDs
-    formData.append('existing_image_ids', JSON.stringify(existingImageIds));
+      const formData = new FormData();
+  this.uploadImages.forEach((file, index) => {
+    formData.append('images[]', file);
+  });
 
-  console.log('FormData content:', formData.get('images'));
-    
-    this.propertySer.addImagesOfProperty(formData,this.propertyId).subscribe({
+  // existingImageIds.forEach((id,index) => {
+  //   formData.append(`existing_image_ids${index}`, id.toString());
+  // });
+  
+    // Make the API call
+    this.propertySer.addImagesOfProperty(formData, this.propertyId).subscribe({
       next: (response) => {
-
-       console.log("Done Upload Images",this.uploadImages);
+        console.log("Done Upload Images", response);
       },
       error: (error) => {
-        console.error('Error adding package:', error);
-      }
-    })
+        console.error('Error uploading images:', error);
+      },
+    });
   }
 
   //                         Property Features  
 
  
  //uploadImages:FormData = new FormData();
-  uploadImages: File[]=[];
+  uploadImages:File[]=[];
   // Method to handle file selection
   onFileSelected(event: any): void {
     const input = event.target as HTMLInputElement;
+    this.uploadImages =  Array.from(event.target.files);
+
     if (input.files) {
       Array.from(input.files).forEach((file) => {
-        this.uploadImages.push(file);
+       // this.uploadImages.append('img',file);
 
-    //   this.uploadImages.push({file:file,fileName:file.name});
+       //this.uploadImages.push(file);
        console.log("inside", this.uploadImages);
         const reader = new FileReader();
 
@@ -292,10 +349,12 @@ export class EditOnAdComponent implements OnInit {
        
         };
 
-      this.addImagesOfPropertyObserve();
 
         reader.readAsDataURL(file); // Read file as data URL
       });
+
+      this.addImagesOfPropertyObserve();
+
     }
   }
 

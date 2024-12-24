@@ -1,0 +1,263 @@
+/* General Form Styling */
+.custom-container {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  h5 {
+    color: #333;
+    font-weight: 700;
+    font-size: 1.8rem;
+  }
+  
+  hr {
+    border: 1px solid #eee;
+  }
+  
+  /* Input Fields */
+  .form-control,
+  .form-select {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  //  transition: all 0.3s ease-in-out;
+    
+  }
+  
+  .form-control:focus,
+  .form-select:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  }
+  
+  
+  
+  /* Buttons */
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a6268;
+    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  /* Labels */
+  .form-label {
+    color: #555;
+    font-weight: 600;
+  }
+  
+  
+  
+  /* Feature and Category Checkboxes */
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .form-check-input:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .form-check-label {
+    font-weight: 500;
+    color: #555;
+  }
+  
+  /* Sections Styling */
+  .custom-bg {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .shadow-sm {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsive Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+  }
+  
+  .g-col-9 {
+    grid-column: span 9;
+  }
+  
+  .g-col-3 {
+    grid-column: span 3;
+  }
+  
+  /* Hover Effects for Grid Containers */
+  .custom-bg:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease-in-out;
+    transform: translateY(-2px);
+  }
+  
+  /* Text Alignment and Spacing */
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-right {
+    text-align: right;
+  }
+  
+  .mt-2 {
+    margin-top: 2rem;
+  }
+  
+  .mb-3 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .w-50 {
+    width: 50%;
+  }
+  
+  /* Custom Input Button for File Upload */
+  .btn-secondary span {
+    font-size: 1rem;
+  }
+  
+  /* Small Text for Hints */
+  .form-text {
+    font-size: 0.875rem;
+    color: #888;
+  }
+  
+  
+  // 
+  @media (max-width: 990px) {
+    .g-col-9,
+    .g-col-3 {
+      width: 100%; /* اجعل كلا العنصرين بنفس العرض */
+    }
+    .grid {
+      display: flex; /* استخدام flexbox لتوزيع العناصر بشكل متساوٍ */
+      flex-wrap: wrap; /* اجعل العناصر تلتف إذا لم تكن كافية في صف واحد */
+    }
+  
+  }
+  //
+  
+  
+    // show images
+    #image-container {
+      /* إعداد تباعد حديث */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    
+    .card {
+      width: 120px;
+      overflow: hidden;
+      border-radius: 12px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      background: #f8f9fa;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card-img-top {
+      height: 130px;
+      object-fit: cover;
+    }
+    
+    .btn-close {
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      font-size: 1rem;
+      padding: 0.5rem;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+    
+    .btn-close:hover {
+      opacity: 1;
+    }
+    
+  
+  
+    // sub category selection
+    .multi-select-container {
+      width: 100%;
+      position: relative;
+    }
+    
+    .multi-select-dropdown {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .selected-options {
+      padding: 10px;
+      background-color: #f9f9f9;
+    }
+    
+    .dropdown-options {
+      display: block;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      z-index: 1;
+    }
+    
+    .dropdown-options label {
+      display: block;
+      padding: 8px;
+      cursor: pointer;
+    }
+    
+    .dropdown-options label:hover {
+      background-color: #f0f0f0;
+    }
+    
+    

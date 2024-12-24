@@ -1,0 +1,221 @@
+<div class="custom-container mt-2 ">
+    <h5 class="text-center mb-4">أضافة إعلان</h5>
+    <div>{{editOnAd.value| json}}</div>
+    <form [formGroup]="editOnAd" (ngSubmit)="onSubmit()">
+      <div class="grid text-right" style="--bs-columns: 12; --bs-gap: 1rem;">
+        <div class="g-col-9  custom-bg rounded shadow-sm">
+          <div class="container mt-5">
+            <!-- عنوان العقار -->
+            <div class="mb-3">
+              <label for="propertyTitle" class="form-label">عنوان</label>
+              <input type="text" formControlName="title" id="propertyTitle" class="form-control" placeholder="عنوان" />
+            </div>
+            <!-- وصف العقار -->
+            <div class="mb-3">
+              <label for="propertyDescription" class="form-label">الوصف</label>
+              <textarea formControlName="description" id="propertyDescription" class="form-control" rows="4"
+                placeholder="الوصف"></textarea>
+            </div>
+            <!-- عرض الصور -->
+            <div class="mb-3">
+              <div class="d-flex flex-wrap gap-4 justify-content-center" id="image-container">
+                <div class="card position-relative" *ngFor="let image of imageListForm; let i = index">
+               
+                   <img [src]="baseUrl + image.url" [alt]="image.alt" class="card-img-top rounded" />
+  
+                   <button class="btn-close btn-close-white position-absolute top-0 end-0 m-2" 
+                   (click)="removeImage(i,image.id)"
+                     aria-label="Close"></button>
+              
+                </div>
+                <div class="card position-relative" *ngFor="let image of imageList; let i = index">
+               
+                  <!-- الصورة -->
+                  <img [src]="image" alt="Image" class="card-img-top rounded" />
+  
+                  <!-- زر الحذف -->
+                  <button class="btn-close btn-close-white position-absolute top-0 end-0 m-2" 
+                  (click)="removeImage(i,0)"
+                    aria-label="Close"></button>
+             
+               </div>
+              </div>
+            </div>
+            <!-- الصور -->
+            <div class="mb-3">
+              <!-- <label for="propertyImages" class="form-label">الصور</label> -->
+              <!-- Input for file upload (hidden) -->
+              <input type="file" id="propertyImages" #fileInput class="form-control d-none"
+                (change)="onFileSelected($event)" multiple />
+  
+              <!-- Custom button to trigger file upload -->
+              <button type="button" class="form-control btn btn-secondary" (click)="triggerFileUpload(fileInput)">
+                <span>اضف صورة</span></button>
+  
+              <small class="form-text text-muted">اضف العديد من الصور</small>
+            </div>
+            <!--   الحى و ألمدينه و المحافظة-->
+            <div class="mb-3">
+              <div class="row gx-3 gy-2 align-items-center">
+                <div class="col-sm-4">
+                  <label class="form-label" for="specificSizeSelect1">المدينة</label>
+                  <select formControlName="city" class="form-select" id="specificSizeSelect1">
+                    <option value="" disabled>حدد المدينة...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+                <div class="col-sm-4">
+                  <label class="form-label" for="specificSizeSelect2">المحافظة</label>
+                  <select formControlName="governorate" class="form-select" id="specificSizeSelect2">
+                    <option value="" disabled>حدد المحافظة...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+                <div class="col-sm-4">
+                  <label class="form-label" for="specificSizeSelect3">الحي</label>
+                  <select formControlName="district" class="form-select" id="specificSizeSelect3">
+                    <option value="" disabled>حدد الحي..</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+              </div>
+  
+            </div>
+            <!-- الموقع -->
+            <div class="mb-3">
+              <label for="propertyLocation" class="form-label">موقع العقار</label>
+              <input formControlName="location" type="text" id="propertyLocation" class="form-control"
+                placeholder="Enter property location" />
+            </div>
+  
+            <!--  تفاصيل العقار الغرف دورات المياه المساحه -->
+            <div class="mb-3">
+              <div class="row gx-3 gy-2 align-items-center">
+                <div class="col-sm-3">
+                  <label class="form-label" for="specificSizeIputName1">عدد الغرف</label>
+                  <input formControlName="room" type="number" class="form-control" id="specificSizeIputName1"
+                    placeholder="عدد الغرف">
+                </div>
+                <div class="col-sm-3">
+                  <label class="form-label" for="specificSizeIputName2">عدد دورات المياة</label>
+                  <input formControlName="bathroom" type="number" class="form-control" id="specificSizeIputName2"
+                    placeholder="عدد دورات المياة">
+                </div>
+                <div class="col-sm-3">
+                  <label class="form-label" for="specificSizeIputName3">عدد الادوار</label>
+                  <input formControlName="floor" type="number" class="form-control" id="specificSizeIputName3"
+                    placeholder="عدد الادوار">
+                </div>
+                <div class="col-sm-3">
+                  <label class="form-label" for="specificSizeIputName4">المساحة</label>
+                  <input formControlName="spaces" type="number" class="form-control" id="specificSizeIputName4"
+                    placeholder="المساحة">
+                </div>
+              </div>
+            </div>
+  
+            <!-- نوع العقار -->
+            <div class="mb-3">
+              <div class="row gx-3 gy-2 align-items-center">
+  
+                <div class="col-sm-6">
+                  <label for="propertyPrice" class="form-label">السعر (ريال)</label>
+                  <input formControlName="price" type="number" id="propertyPrice" class="form-control"
+                    placeholder="Enter property price" />
+                </div>
+                <div class="col-sm-6">
+                  <label for="rentalOrSell" class="form-label">النوع</label>
+                  <select formControlName="section" class="form-select" id="rentalOrSell">
+                    <option value="" disabled>ايجار او بيع...</option>
+                    <option value="for rent">ايجار</option>
+                    <option value="for sale">بيع</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+  
+            <hr>
+            <!-- مميزات العقار -->
+            <div class="mb-3">
+              <label class="form-label mb-3">مميزات العقار</label>
+              <div class="d-flex" formArrayName="featureIds">
+                <ng-container *ngFor="let item of featureList; let i = index">
+                  <div class="form-check me-3">
+                    <input class="form-check-input" [formControlName]="i" type="checkbox" [id]="'option' + i" />
+                    <label class="form-check-label" [for]="'option' + i">
+                      {{ item.ar_title }}
+                    </label>
+                  </div>
+                </ng-container>
+  
+              </div>
+            </div>
+  
+  
+  
+          </div>
+  
+        </div>
+  
+        <div class="g-col-3  custom-bg rounded shadow-sm">
+          <div class="container mt-5">
+  
+            <!-- التصنيف-->
+            <div class="mb-3">
+              <label class="form-label mb-3">التصنيف</label>
+  
+              <div formArrayName="categoryIds">
+                <ng-container *ngFor="let item of categoryList; let i = index">
+                  <div class="form-check me-3">
+                    <input class="form-check-input" [formControlName]="i"
+                      (change)="onCheckboxChangee(item,categoryIds.at(i).value)" type="checkbox" [id]="'option' + i" />
+                    <label class="form-check-label" [for]="'option' + i">
+                      {{ item.ar_title }}
+                    </label>
+                  </div>
+                </ng-container>
+              </div>
+  
+  
+            </div>
+            <!-- التصنيف الفرعى-->
+            <div class="mb-3">
+              <label class="form-label mb-3">التصنيف الفرعى</label>
+              <div class="multi-select-container">
+                <div class="multi-select-dropdown" (click)="toggleDropdown()">
+                  <div class="selected-options">
+                    {{ subCategoryNameArrayMap.length ? (subCategoryNameArrayMap).join(', ') : 'Select options' }}
+                  </div>
+                  <div class="dropdown-options" *ngIf="dropdownOpen">
+                    <ng-container *ngFor="let option of subCategoryList; let i = index">
+                      <label class="form-check-label" [for]="'option' + i">{{ option.ar_title}}
+                        <input class="form-check-input" type="checkbox" (click)="onCheckboxChange(option)"
+                          [checked]="isChecked(option.id)" [id]="'option' + i" />
+                      </label>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <hr>
+  
+  
+            <br>
+            <!-- زر الحفظ -->
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary w-50">حفظ</button>
+            </div>
+          </div>
+        </div>
+  
+  
+      </div>
+    </form>
+  </div>

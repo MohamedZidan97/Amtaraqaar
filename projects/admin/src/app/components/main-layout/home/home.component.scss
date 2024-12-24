@@ -1,0 +1,45 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .stats-card {
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stats-card .number {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+  
+  .map {
+    height: 250px;
+    background: url('https://via.placeholder.com/300x250') no-repeat center;
+    background-size: cover;
+    border-radius: 15px;
+  }
+  
+  .section-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  
+  .additional-stats {
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .additional-stats .label {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  
+  .additional-stats .value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #495057;
+  }
+  

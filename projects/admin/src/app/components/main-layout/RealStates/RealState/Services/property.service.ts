@@ -23,10 +23,9 @@ export class PropertyService {
 
   }
 
-  // addPackage(model:IAddPackage){
-  //   return this.http.post<any>(`${environment.apiUrl}packages`,model,this.headerOption);
-
-  // }
+  addProperty(model:any){
+    return this.http.post<any>(`${environment.apiUrl}packages`,model,this.headerOption);
+  }
 
   deleteProperty(id:number){
     const url = `${environment.apiUrl}properties/${id}`;

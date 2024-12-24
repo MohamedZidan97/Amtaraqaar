@@ -15,6 +15,7 @@ import { ClassifyAnAdditionPropertyComponent } from './components/main-layout/De
 import { ShowAllAdvsComponent } from './components/main-layout/RealStates/RealState/show-all-advs/show-all-advs.component';
 import { UserProfileSettingComponent } from './components/UserProfile/user-profile-setting/user-profile-setting.component';
 import { TryToReaciveToTheBestComponent } from './components/main-layout/RealStates/Project/try-to-reacive-to-the-best/try-to-reacive-to-the-best.component';
+import { AddPropertyComponent } from './components/main-layout/RealStates/RealState/add-property/add-property.component';
 
 export const routes: Routes = [
 
@@ -32,7 +33,8 @@ export const routes: Routes = [
         {path:'ClassifyAndAdditionProperty',component:ClassifyAnAdditionPropertyComponent,canActivate:[AuthGuard]},
         {path:'ShowAllAdvs',component:ShowAllAdvsComponent,canActivate:[AuthGuard]},
         {path:'UserProfile',component:UserProfileSettingComponent,canActivate:[AuthGuard]},
-        {path:'TryToReacive',component:TryToReaciveToTheBestComponent,canActivate:[AuthGuard]}
+        {path:'TryToReacive',component:TryToReaciveToTheBestComponent,canActivate:[AuthGuard]},
+        {path:'AddProperty',component:AddPropertyComponent,canActivate:[AuthGuard]}
 
 
         
