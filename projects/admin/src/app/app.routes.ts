@@ -16,6 +16,7 @@ import { ShowAllAdvsComponent } from './components/main-layout/RealStates/RealSt
 import { UserProfileSettingComponent } from './components/UserProfile/user-profile-setting/user-profile-setting.component';
 import { TryToReaciveToTheBestComponent } from './components/main-layout/RealStates/Project/try-to-reacive-to-the-best/try-to-reacive-to-the-best.component';
 import { AddPropertyComponent } from './components/main-layout/RealStates/RealState/add-property/add-property.component';
+import { SettingComponent } from './components/main-layout/Settings/setting/setting.component';
 
 export const routes: Routes = [
 
@@ -34,7 +35,9 @@ export const routes: Routes = [
         {path:'ShowAllAdvs',component:ShowAllAdvsComponent,canActivate:[AuthGuard]},
         {path:'UserProfile',component:UserProfileSettingComponent,canActivate:[AuthGuard]},
         {path:'TryToReacive',component:TryToReaciveToTheBestComponent,canActivate:[AuthGuard]},
-        {path:'AddProperty',component:AddPropertyComponent,canActivate:[AuthGuard]}
+        {path:'AddProperty',component:AddPropertyComponent,canActivate:[AuthGuard]},
+        {path:'Setting',component:SettingComponent,canActivate:[AuthGuard]}
+
 
 
         

@@ -61,6 +61,8 @@ export class EditOnAdComponent implements OnInit {
     this.imageList;
     this.propertyId = Number(this.activitedRoute.snapshot.paramMap.get('propertyId'));
     this.getPropertyByIdObserve();
+
+    
   }
   //
 
@@ -306,13 +308,25 @@ export class EditOnAdComponent implements OnInit {
 
       const formData = new FormData();
   this.uploadImages.forEach((file, index) => {
-    formData.append('images[]', file);
+    formData.append("images", file);
   });
 
   // existingImageIds.forEach((id,index) => {
   //   formData.append(`existing_image_ids${index}`, id.toString());
   // });
-  
+   existingImageIds.forEach((id,index) => {
+    formData.append("ids", id.toString());
+  });
+
+  this.propertySer.addTest(formData).subscribe({
+    next: (response) => {
+      console.log("Done Upload testttttttt", response);
+    },
+    error: (error) => {
+      console.error('Error uploading images:', error);
+    },
+  });
+ 
     // Make the API call
     this.propertySer.addImagesOfProperty(formData, this.propertyId).subscribe({
       next: (response) => {

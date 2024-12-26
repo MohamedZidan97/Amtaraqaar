@@ -1,18 +1,25 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthService } from '../../../auth/Services/auth.service';
+import { environment } from '../../../../Environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HomeService {
-
-  constructor(private http:HttpClient) { }
-
-  // getDep():Observable<any>{
-  //   return this.http.get<any>('http://localhost:5093/api/Department/getAllDepartments');
-  // }
-  // getAllProducts(): Observable<any[]> {
-  //   return this.http.get<any[]>('http://localhost:5093/api/Department/getAllDepartments');
-  // }
+ headerOption;
+  constructor(private http:HttpClient,private auth:AuthService) {
+    this.headerOption = {
+      headers: new HttpHeaders({
+        'accept': "'/*",
+        'Content-Type': 'application/json',
+        'Authorization':`Bearer ${this.auth.getToken()}`
+      })
+    };
+   }
+  getAllStatistics(){
+     return this.http.get<any>(`${environment.apiUrl}dashboard/statistics`,this.headerOption);
+ 
+   }
 }

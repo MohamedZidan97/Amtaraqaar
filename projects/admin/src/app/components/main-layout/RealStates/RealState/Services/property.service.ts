@@ -49,4 +49,8 @@ export class PropertyService {
    }
 
 
+   addTest(model:any){
+    return this.http.post<any>(`https://localhost:7252/api/Test/Test1`,model);
+  }
+
 }

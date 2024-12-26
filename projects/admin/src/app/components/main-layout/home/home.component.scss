@@ -1,45 +1,48 @@
-body {
-    background-color: #f8f9fa;
-    font-family: 'Roboto', sans-serif;
-  }
-  
+.container {
   .stats-card {
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
+    .stat-label {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
   }
-  
-  .stats-card .number {
-    font-size: 2.5rem;
-    font-weight: 700;
-  }
-  
-  .map {
-    height: 250px;
-    background: url('https://via.placeholder.com/300x250') no-repeat center;
-    background-size: cover;
-    border-radius: 15px;
-  }
-  
+
   .section-title {
-    font-size: 1.2rem;
-    font-weight: 500;
-    margin-bottom: 20px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+    display: inline-block;
   }
-  
+
   .additional-stats {
-    border-radius: 15px;
-    background: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    .label {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .value {
+      font-size: 2rem;
+      font-weight: bold;
+    }
   }
-  
-  .additional-stats .label {
-    font-size: 1rem;
-    color: #6c757d;
+
+  .map-container {
+    .map {
+      border-radius: 10px;
+      background: #e9ecef;
+      height: 100%;
+    }
   }
-  
-  .additional-stats .value {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #495057;
-  }
-  
+}

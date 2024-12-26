@@ -1,33 +1,43 @@
 <div class="container my-5">
   <div class="row g-4">
     <!-- Stats Cards -->
-    <div class="col-lg-3 col-sm-6" *ngFor="let stat of stats">
-      <div class="stats-card text-center py-4 text-white" [ngStyle]="{'background-color': stat.color}">
-        <p>{{ stat.label }}</p>
-        <p class="number">{{ stat.value }}</p>
+    <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let stat of stats">
+      <div
+        class="stats-card text-center p-4 rounded text-white shadow-sm"
+        [ngStyle]="{'background-color': stat.color}"
+      >
+        <h5 class="stat-label mb-2">{{ stat.label }}</h5>
+        <h2 class="stat-value">{{ stat.value }}</h2>
       </div>
     </div>
   </div>
 
   <!-- Analytics Section -->
-  <div class="row my-5">
-    <div class="col-lg-8">
-      <div class="card p-4">
-        <h6 class="section-title">Site Analytics</h6>
+  <div class="row my-5 align-items-stretch">
+    <div class="col-lg-8 mb-4 mb-lg-0">
+      <div class="card shadow-sm p-4 h-100">
+        <h5 class="section-title mb-3">Site Analytics</h5>
         <canvas id="lineChart"></canvas>
       </div>
     </div>
     <div class="col-lg-4">
-      <div class="map"></div>
+      <div class="map-container card shadow-sm h-100 p-4">
+        <h5 class="section-title mb-3">Map</h5>
+        <div class="map" style="height: 100%; background-color: #f8f9fa;">
+          <!-- Placeholder for a map -->
+          <p class="text-muted text-center mt-5">Map Placeholder</p>
+        </div>
+      </div>
     </div>
   </div>
 
+
   <!-- Additional Stats -->
-  <div class="row my-4">
-    <div class="col-lg-4" *ngFor="let stat of additionalStats">
-      <div class="additional-stats text-center py-4">
-        <p class="label">{{ stat.label }}</p>
-        <p class="value">{{ stat.value }}</p>
+  <div class="row g-4">
+    <div class="col-lg-4 col-md-6" *ngFor="let stat of additionalStats">
+      <div class="additional-stats text-center py-4 rounded shadow-sm bg-light">
+        <h6 class="label text-uppercase mb-2 text-secondary">{{ stat.label }}</h6>
+        <h3 class="value text-dark">{{ stat.value }}</h3>
       </div>
     </div>
   </div>

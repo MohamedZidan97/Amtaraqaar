@@ -32,7 +32,8 @@
               }
             ],
             "styles": [
-              "projects/admin/src/styles.scss"
+              "projects/admin/src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [],
             "server": "projects/admin/src/main.server.ts",
@@ -96,7 +97,9 @@
               }
             ],
             "styles": [
-              "projects/admin/src/styles.scss"
+              "projects/admin/src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
+
             ],
             "scripts": []
           }
