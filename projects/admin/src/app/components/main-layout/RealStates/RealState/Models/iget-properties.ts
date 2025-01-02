@@ -1,10 +1,10 @@
 export interface IGetProperties {
     id:number,
-    media_files:{url:string,alt:string}[],
+    images:{path:string,id:number}[],
     title:string,
     number_of_views:number,
     ad_number:number,
     handover:Date,
-    status:string,
-    section:string
+    section:string,
+    active:boolean
 }

@@ -111,7 +111,7 @@
             data-bs-toggle="dropdown" aria-expanded="false" style="width: 40px; height: 40px; overflow: hidden;">
 
             <!-- إضافة الصورة الشخصية -->
-            <img src="1.png" alt="User Profile"
+            <img [src]="baseUrl + avatar" alt="User Profile"
               style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
           </button>
           <!-- القائمة العصرية -->
@@ -121,8 +121,8 @@
             <!-- القسم العلوي للصورة والبيانات -->
             <li class="p-3 bg-light d-flex align-items-center rounded-top" style="border-bottom: 1px solid #ddd;">
               <div class="ms-3 text-start">
-                <p class="fw-bold mb-0" style="font-size: 14px;">محمد زيدان</p>
-                <p class="text-muted mb-0" style="font-size: 12px;">mohamedzidan6846gmail.com</p>
+                <p class="fw-bold mb-0" style="font-size: 14px;">{{fullName}}</p>
+                <p class="text-muted mb-0" style="font-size: 12px;">{{email}}</p>
               </div>
             </li>
             
@@ -202,12 +202,30 @@
 
       <hr class="text-white">
 
-      <!-- Library -->
-      <!-- <a class="nav-link mb-3" href="#">
-        <i class="bi bi-book"></i> المكتبة
-      </a> -->
+       <!-- Collapsible Section - user -->
+       <a class="nav-link mb-2" data-bs-toggle="collapse" href="#UserSection" role="button" aria-expanded="false"
+       aria-controls="UserSection">
+       <i class="bi bi-person"></i>  المستخدم
+     </a>
+     <div class="collapse" id="UserSection">
+       <a class="nav-link sub-item" routerLink="/ShowAllUsers" routerLinkActive="active">
+         <i class="bi bi-view-list text-primary me-3"></i> عرض المستخدمين
+       </a>
+     </div>
 
-      <!-- Log -->
+       <!-- Collapsible Section - Chatting Between Clients -->
+       <a class="nav-link mb-2" data-bs-toggle="collapse" href="#ChattingBetweenClientsSection" role="button" aria-expanded="false"
+       aria-controls="ChattingBetweenClientsSection">
+       <i class="bi bi-person"></i>  الدردشة الخاصة
+     </a>
+     <div class="collapse" id="ChattingBetweenClientsSection">
+       <a class="nav-link sub-item" routerLink="/ShowListChats" routerLinkActive="active">
+         <i class="bi bi-view-list text-primary me-3"></i> عرض الدردشات
+       </a>
+     </div>
+
+
+      <!-- setting -->
       <a class="nav-link mb-3" routerLink="Setting" routerLinkActive="active">
         <i class="bi bi-gear me-2"></i> الإعدادات
       </a>

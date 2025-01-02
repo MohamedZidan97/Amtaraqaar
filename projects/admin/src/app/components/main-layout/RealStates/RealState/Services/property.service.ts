@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../../../../auth/Services/auth.service';
 import { environment } from '../../../../../Environments/environment.prod';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,6 @@ export class PropertyService {
   constructor(private http:HttpClient,private auth:AuthService) {
     this.headerOption = {
       headers: new HttpHeaders({
-        'accept': "'/*",
-        'Content-Type': 'application/json',
         'Authorization':`Bearer ${this.auth.getToken()}`
       })
     };
@@ -23,8 +22,10 @@ export class PropertyService {
 
   }
 
-  addProperty(model:any){
-    return this.http.post<any>(`${environment.apiUrl}packages`,model,this.headerOption);
+  addProperty(model:FormData){
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${this.auth.getToken()}` );
+
+    return this.http.post<any>(`${environment.apiUrl}properties`,model,{headers});
   }
 
   deleteProperty(id:number){
@@ -39,9 +40,11 @@ export class PropertyService {
   }
 
   updateProperty(id:number,model:any){
+    const headers = new HttpHeaders().set('Authorization',`Bearer ${this.auth.getToken()}` );
+
     const url = `${environment.apiUrl}properties/${id}`;
     console.log('update..',model);
-    return this.http.post<any>(url,model,this.headerOption);
+    return this.http.post<any>(url,model,{headers});
   }
 
   addImagesOfProperty(model:any,id:number){
@@ -49,8 +52,8 @@ export class PropertyService {
    }
 
 
-   addTest(model:any){
-    return this.http.post<any>(`https://localhost:7252/api/Test/Test1`,model);
+   removeImages(idProperty:number,idImage:number){
+    return this.http.delete<any>(`${environment.apiUrl}properties/${idProperty}/images/${idImage}`,this.headerOption);
   }
 
 }

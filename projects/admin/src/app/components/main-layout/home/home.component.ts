@@ -9,35 +9,101 @@ import { HomeService } from './Services/home.service';
 import { AuthService } from '../../auth/Services/auth.service';
 import { UserDbStoreService } from '../../auth/Services/user-db-store.service';
 import { Chart, registerables } from 'chart.js';
+import {GoogleMap,GoogleMapsModule, MapMarker} from '@angular/google-maps';
+import { error } from 'console';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,
+    GoogleMap, MapMarker,GoogleMapsModule
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
-  stats = [
-    { label: 'العملاء', value: 32, color: '#0d6efd' },
-    { label: 'العقارات منتهية الصلاحية', value: 4, color: '#dc3545' },
-    { label: 'الحالة معلقة', value: 0, color: '#17a2b8' },
-    { label: 'الحالة نشطة', value: 60, color: '#6f42c1' },
+  usersCount:number=0;;
+  totalPropertiesCount:number=0;
+  activePropertiesCount:number=0;
+  inactivePropertiesCount:number=0;
+  
+  stats :any[] = [
+    { label: 'العملاء', value: this.usersCount, color: '#054a83' },
+    { label: ' العقارات', value: this.totalPropertiesCount, color: '#771414' },
+    { label: 'عقارات حالة معلقة', value: this.inactivePropertiesCount, color: '#17a2b8' },
+    { label: 'عقارات حالة نشطة', value: this.activePropertiesCount, color: '#069431' },
   ];
 
   additionalStats = [
-    { label: 'Bounce Rate', value: '312%' },
-    { label: 'عدد مرات مشاهدة الصفحة', value: '1,921' },
-    { label: 'Visitors', value: 414 },
+    { label: 'معدل الزيارة لهذة الشهر', value: '0%' },
+    { label: 'عدد مرات مشاهدة الصفحات', value: '0' },
+    { label: 'عدد الزوار', value: 0 },
   ];
 
-  constructor() {
+  constructor(private homeService:HomeService) {
     Chart.register(...registerables);
   }
 
   ngOnInit() {
-    this.createChart();
+    this.markerPositions = [
+      { lat: 24.7136, lng: 46.6753, }, // الرياض
+      { lat: 21.3891, lng: 39.8579 }, // جدة
+      { lat: 26.4207, lng: 50.0888 }, // الدمام
+      { lat: 21.5169, lng: 39.2192 }, // مكة المكرمة
+      { lat: 24.5247, lng: 39.5692 }, // المدينة المنورة
+      { lat: 31.5129, lng: 34.4667 }, // تبوك
+      { lat: 27.5114, lng: 41.7208 }, // حائل
+      { lat: 20.417, lng: 41.5078 },  // أبها
+      { lat: 17.6102, lng: 44.113 },  // نجران
+      { lat: 18.2161, lng: 42.5053 }, // جازان
+      { lat: 29.3697, lng: 47.9732 }, // الجبيل
+      { lat: 25.4019, lng: 49.6308 }, // الخبر
+      { lat: 26.9898, lng: 49.5738 }, // الأحساء
+      { lat: 28.3838, lng: 36.5786 }, // الجوف
+      { lat: 24.6333, lng: 46.7167 }  // الخرج
+    ];
+    this.getAllStatisticsObserve();
+  }
+// get statistices
+
+  getAllStatisticsObserve() {
+    this.homeService.getAllStatistics().subscribe({
+      next: (res) => {
+        this.usersCount = res.users_count;
+        this.totalPropertiesCount = res.total_properties_count;
+        this.activePropertiesCount = res.active_properties_count;
+        this.inactivePropertiesCount = res.inactive_properties_count;
+
+        this.stats = [
+          { label: 'العملاء', value: this.usersCount, color: '#054a83' },
+          { label: ' العقارات', value: this.totalPropertiesCount, color: '#771414' },
+          { label: 'عقارات حالة معلقة', value: this.inactivePropertiesCount, color: '#17a2b8' },
+          { label: 'عقارات حالة نشطة', value: this.activePropertiesCount, color: '#069431' },
+        ]
+
+      },
+      error: (err) => {
+        console.log(err);
+
+
+      }
+    });
+  }
+  
+  center: google.maps.LatLngLiteral = {lat: 24.7136, lng: 46.6753};
+  zoom = 6;
+  markerPositions: google.maps.LatLngLiteral[] = [];
+  
+  // markerClustererImagePath =
+  //     'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m';
+
+      
+  addMarker(event: google.maps.MapMouseEvent) {
+    if (event.latLng) {
+      this.markerPositions.push(event.latLng.toJSON());
+    }  
+    
   }
 
   createChart() {
@@ -45,10 +111,10 @@ export class HomeComponent implements OnInit {
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['Apr 2024', 'May 2024', 'Jun 2024', 'Oct 2024'],
+        labels: ['ابريل 2024', 'مايو 2024', 'يونيو 2024', 'اكتوبر 2024'],
         datasets: [
           {
-            label: 'Visitors',
+            label: 'الزوار',
             data: [500, 1000, 1500, 2000],
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgba(54, 162, 235, 1)',
@@ -56,7 +122,7 @@ export class HomeComponent implements OnInit {
             tension: 0.4,
           },
           {
-            label: 'Sessions',
+            label: 'الجلسات',
             data: [300, 700, 1200, 1800],
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',

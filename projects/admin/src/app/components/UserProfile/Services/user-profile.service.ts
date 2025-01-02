@@ -11,8 +11,6 @@ export class UserProfileService {
   constructor(private http: HttpClient, private auth: AuthService) {
     this.headerOption = {
       headers: new HttpHeaders({
-        'accept': "'/*",
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.auth.getToken()}`
       })
     };
@@ -33,7 +31,6 @@ export class UserProfileService {
   // update password
   updatePassword(model: any) {
     return this.http.put<any>(`${environment.apiUrl}user/password`, model, this.headerOption);
-
   }
 
 

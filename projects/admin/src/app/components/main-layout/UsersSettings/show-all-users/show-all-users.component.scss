@@ -1,0 +1,109 @@
+/* General Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  h2 {
+    font-weight: bold;
+  }
+  
+  /* Table Styling */
+  .modern-table {
+    border-collapse: separate;
+    border-spacing: 0 8px;
+  }
+  
+  .modern-table thead tr {
+    background-color: #212529;
+    color: white;
+  }
+  
+  .modern-table tbody tr {
+    background-color: #ffffff;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .modern-table tbody tr:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Buttons Styling */
+  .btn-action {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+    font-size: 1.1rem;
+  }
+  
+  .btn-outline-primary:hover,
+  .btn-outline-danger:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Add Property Button */
+  .btn-primary {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-primary:hover {
+    transform: scale(1.03);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 992px) {
+    .modern-table th,
+    .modern-table td {
+      font-size: 0.9rem;
+      padding: 10px 5px;
+    }
+    
+    .btn-action {
+      width: 35px;
+      height: 35px;
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    table thead {
+      display: none; /* Hide table headers on small screens */
+    }
+    
+    table tr {
+      display: block;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+    }
+    
+    table td {
+      display: block;
+      text-align: right;
+      padding: 8px;
+      position: relative;
+    }
+    
+    table td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      position: absolute;
+      left: 10px;
+      color: #6c757d;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .btn-primary,
+    .btn-outline-primary,
+    .btn-outline-danger {
+      font-size: 0.8rem;
+      padding: 6px 8px;
+    }
+  }
+  

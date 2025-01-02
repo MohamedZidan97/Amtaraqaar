@@ -72,6 +72,13 @@ export class AuthService {
   getName(): string | null {
     return localStorage.getItem('Name');
   }
+  // name
+  storeAvatar(AvatarValue: string) {
+    localStorage.setItem('Avatar', AvatarValue)
+  }
+  getAvatar(): string | null {
+    return localStorage.getItem('Avatar');
+  }
 
   //first name
   setFirstName(nameValue: string) {

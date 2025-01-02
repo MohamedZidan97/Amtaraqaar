@@ -1,3 +1,4 @@
+
 <div class="container my-5">
   <div class="row g-4">
     <!-- Stats Cards -->
@@ -13,24 +14,21 @@
   </div>
 
   <!-- Analytics Section -->
-  <div class="row my-5 align-items-stretch">
-    <div class="col-lg-8 mb-4 mb-lg-0">
-      <div class="card shadow-sm p-4 h-100">
-        <h5 class="section-title mb-3">Site Analytics</h5>
-        <canvas id="lineChart"></canvas>
-      </div>
-    </div>
-    <div class="col-lg-4">
-      <div class="map-container card shadow-sm h-100 p-4">
-        <h5 class="section-title mb-3">Map</h5>
-        <div class="map" style="height: 100%; background-color: #f8f9fa;">
-          <!-- Placeholder for a map -->
-          <p class="text-muted text-center mt-5">Map Placeholder</p>
-        </div>
-      </div>
-    </div>
+  <div class="center row my-5 align-items-stretch map-container">
+    <google-map
+      height="410px"
+      width="100%"
+      [center]="center"
+      [zoom]="zoom"
+      (mapClick)="addMarker($event)">
+      <map-marker
+        *ngFor="let marker of markerPositions"
+        [position]="{ lat: marker.lat, lng: marker.lng }">
+      </map-marker>
+    </google-map>
   </div>
-
+  
+<div style="color: #771414;"></div>
 
   <!-- Additional Stats -->
   <div class="row g-4">

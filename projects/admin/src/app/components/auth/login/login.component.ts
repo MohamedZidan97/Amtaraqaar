@@ -20,7 +20,6 @@ import { BrowserModule } from '@angular/platform-browser';
 })
 export class LoginComponent implements OnInit  {
   adminLogin: FormGroup;
-
   constructor( private fb: FormBuilder,private authService :AuthService,private router:Router
     ,private userStore:UserDbStoreService
     ,private toastr:ToastrService
@@ -62,12 +61,14 @@ export class LoginComponent implements OnInit  {
         this.authService.storeName(`${res.user.first_name} ${res.user.last_name}`)
         this.authService.setFirstName(res.user.first_name);
         this.authService.setLastName(res.user.last_name);
-        this.authService.setUserName(res.user.username);
+        this.authService.storeAvatar(res.user.avatar);
 
 
-        this.userStore.setFullNameForStore(this.authService.getName()||"");
-        this.userStore.setEmailForStore(this.authService.getEmail()||"");
+        this.userStore.setFullNameForStore(`${res.user.first_name} ${res.user.last_name}`||"");
+        this.userStore.setEmailForStore(res.user.email||"");
+        this.userStore.setAvatarForStore(res.user.avatar);
 
+        this.userStore.getAvatarFromStore().subscribe(res1=> console.log(res1))
         this.adminLogin.reset();
         this.router.navigate(['/Home']);
       },

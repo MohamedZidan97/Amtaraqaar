@@ -41,7 +41,7 @@
     <div class="tab-content p-4" id="pills-tabContent">
       <!-- User Information -->
       <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <form class="row g-3" [formGroup]="userInformation" (ngSubmit)="onSubmituserInformation()">
+        <form class="row g-3" [formGroup]="userInformationForm" (ngSubmit)="onSubmituserInformation()">
           <div class="col-md-6">
             <label for="firstName" class="form-label fw-semibold">الاسم الأول *</label>
             <input type="text" class="form-control modern-input" id="firstName" formControlName="firstName" name="firstName"
@@ -122,8 +122,15 @@
       <!-- Change Profile Picture -->
       <div class="tab-pane fade text-center" id="personalPhoto" role="tabpanel" aria-labelledby="personalPhoto-tab">
         <div class="d-flex flex-column align-items-center">
-          <img [src]="profileImageUrl" alt="الصورة الشخصية" class="rounded-circle shadow-lg mb-4 modern-img" width="180"
+          <ng-container *ngIf="profileImageUrl==''; else avatarg">
+            <img src="images.jpeg" alt="الصورة الشخصية" class="rounded-circle shadow-lg mb-4 modern-img" width="180"
             height="180">
+          </ng-container>
+          <ng-template #avatarg>
+            <img [src]="baseUrl + profileImageUrl" alt="الصورة الشخصية" class="rounded-circle shadow-lg mb-4 modern-img" width="180"
+            height="180">
+          </ng-template>
+          
           <label for="photoInput" class="btn modern-btn-outline btn-lg">
             <i class="fas fa-upload me-2"></i> اختر صورة جديدة
             <input type="file" id="photoInput" class="d-none" (change)="onFileSelected($event)">
@@ -134,13 +141,13 @@
 
       <!-- Change Password -->
       <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
-        <form (submit)="changePassword()" class="row g-3">
+        <form class="row g-3" [formGroup]="changePasswordForm" (ngSubmit)="onSubmitchangePassword()">
           <!-- Current Password -->
           <div class="col-12 position-relative">
             <label for="currentPassword" class="form-label fw-semibold">كلمة المرور الحالية *</label>
             <div class="input-group">
               <input [type]="showCurrentPassword ? 'text' : 'password'" class="form-control modern-input"
-                id="currentPassword" [(ngModel)]="currentPassword" name="currentPassword" placeholder="••••••••">
+                id="currentPassword" formControlName="currentPassword"  name="currentPassword" placeholder="••••••••">
               <span class="input-group-text bg-transparent border-0" style="cursor: pointer;"
                 (click)="togglePasswordVisibility('current')">
                 <i class="fas" [ngClass]="showCurrentPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
@@ -153,7 +160,7 @@
             <label for="newPassword" class="form-label fw-semibold">كلمة المرور الجديدة *</label>
             <div class="input-group">
               <input [type]="showNewPassword ? 'text' : 'password'" class="form-control modern-input" id="newPassword"
-                [(ngModel)]="newPassword" name="newPassword" placeholder="••••••••">
+                 formControlName="newPassword" name="newPassword" placeholder="••••••••">
               <span class="input-group-text bg-transparent border-0" style="cursor: pointer;"
                 (click)="togglePasswordVisibility('new')">
                 <i class="fas" [ngClass]="showNewPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
@@ -166,7 +173,7 @@
             <label for="confirmPassword" class="form-label fw-semibold">تأكيد كلمة المرور *</label>
             <div class="input-group">
               <input [type]="showConfirmPassword ? 'text' : 'password'" class="form-control modern-input"
-                id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="••••••••">
+                id="confirmPassword" formControlName="confirmPassword" name="confirmPassword" placeholder="••••••••">
               <span class="input-group-text bg-transparent border-0" style="cursor: pointer;"
                 (click)="togglePasswordVisibility('confirm')">
                 <i class="fas" [ngClass]="showConfirmPassword ? 'fa-eye' : 'fa-eye-slash'"></i>

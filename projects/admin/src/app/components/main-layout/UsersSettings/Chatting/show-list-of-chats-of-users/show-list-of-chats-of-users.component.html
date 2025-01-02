@@ -1,0 +1,61 @@
+<!-- <div class="chat-page">
+    <div class="chat-header">
+      <div class="user-info">
+        <img src="user-avatar.jpg" alt="User Avatar" class="user-avatar" />
+        <h3 class="user-name">John Doe</h3>
+      </div>
+    </div>
+  
+    <div class="chat-messages">
+      <div
+        class="message message-received"
+        *ngFor="let message of messages; let i = index"
+      >
+        <p>{{ message.text }}</p>
+        <span class="message-time">{{ message.time }}</span>
+      </div>
+      <div
+        class="message message-sent"
+        *ngFor="let message of messagesSent; let i = index"
+      >
+        <p>{{ message.text }}</p>
+        <span class="message-time">{{ message.time }}</span>
+      </div>
+    </div>
+  </div>
+   -->
+  
+
+    <div class="modern-chat center row my-5 align-items-stretch">
+        <!-- Chat Header -->
+        <div class="chat-header">
+          <div class="user-info">
+            <img src="1.png" alt="User Avatar" class="user-avatar" />
+            <div class="user-details me-3">
+              <h3 class="user-name">محمد زيدان</h3>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Chat Messages -->
+        <div class="chat-messages">
+            <div
+            class="message message-received"
+            *ngFor="let message of messages; let i = index"
+          >
+            <p>{{ message.text }}</p>
+            <span class="message-time">{{ message.time }}</span>
+          </div>
+          <div
+            class="message message-sent"
+            *ngFor="let message of messagesSent; let i = index"
+          >
+            <p>{{ message.text }}</p>
+            <span class="message-time">{{ message.time }}</span>
+          </div>
+        </div>
+      
+      </div>
+
+
+  

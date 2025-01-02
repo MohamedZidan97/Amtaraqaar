@@ -21,6 +21,12 @@
           <th>الرقم المميز</th>
           <th>تاريخ الإنشاء</th>
           <th>الحالة</th>
+          <ng-container *ngIf="isActive">
+          <th>تعطيل</th>
+        </ng-container>
+        <ng-container *ngIf="!isActive">
+          <th>تفعيل</th>
+        </ng-container>
           <th>تعديل</th>
           <th>حذف</th>
         </tr>
@@ -30,12 +36,12 @@
           <td>{{ i + 1 }}</td>
           <td>
             <div class="d-flex align-items-center justify-content-center">
-              <ng-container *ngIf="row.media_files.length == 0; else tempPhoto">
+              <ng-container *ngIf="row.images.length == 0; else tempPhoto">
                 <img src="1.png" class="img-thumbnail rounded-circle shadow-sm" width="50" height="50" />
               </ng-container>
               <ng-template #tempPhoto>
-                <img [src]="baseUrl + row.media_files[0].url" 
-                     [alt]="row.media_files[0].alt"
+                <img [src]="baseUrl + row.images[0].path" 
+                     alt="image of property in amtaraqar website"
                      class="img-thumbnail rounded-circle shadow-sm"
                      width="50" height="50" />
               </ng-template>
@@ -52,6 +58,22 @@
               {{ row.section === 'for sale' ? 'بيع' : 'إيجار' }}
             </span>
           </td>
+          <ng-container *ngIf="!isActive">
+            <td>
+              <button type="button" class="btn btn-outline-secondary btn-action shadow-sm" title="تفعيل"
+                (click)="changeActive()">
+                <i class="bi bi-check-circle"></i>
+              </button>
+            </td>
+          </ng-container>
+          <ng-container *ngIf="isActive">
+          <td>
+            <button type="button" class="btn btn-outline-secondary btn-action shadow-sm" title="تعطيل"
+              [routerLink]="['/DisableAd', row.id]" routerLinkActive="active">
+              <i class="bi bi-slash-circle"></i>
+            </button>
+          </td>
+        </ng-container>
           <td>
             <button type="button" class="btn btn-outline-primary btn-action shadow-sm" title="تعديل"
                     [routerLink]="['/EditOnAd', row.id]" routerLinkActive="active">
@@ -82,7 +104,7 @@
       <button class="btn btn-primary shadow-sm rounded-pill mb-2" 
               (click)="prevPage()" [disabled]="currentPage === 0">السابق</button>
       <button class="btn btn-primary shadow-sm rounded-pill mb-2 ms-3" 
-              (click)="nextPage()" [disabled]="(currentPage + 1) * pageSize >= data.length">التالي</button>
+              (click)="nextPage()" [disabled]="(currentPage + 1) * pageSize >= listLength">التالي</button>
     </div>
   </div>
 </div>
